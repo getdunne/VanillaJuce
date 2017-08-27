@@ -4,7 +4,7 @@
 
 In this context, "complete" doesn't mean that this is a particularly great synthesizer; rather, it means that all of the major plugin requirements are covered, i.e.:
 - VST 2.4 compatible plugin builds under Microsoft Visual Studio 2017 (Community version is sufficient)
-- Audio Unit v2 compatible plugin builds under Apple XCode 8.3.3
+- Audio Unit v2 compatible plugin builds under Apple XCode (tested with v8.2.1)
 - Plugin has a simple GUI editor, using JUCE controls only (no custom graphics)
 - Very basic 16-voice synthesizer with 2 oscillators and ADSR amplitude envelope
 - Dynamic editing of sound parameters is supported
