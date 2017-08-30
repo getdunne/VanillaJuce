@@ -1,7 +1,4 @@
 #include "SynthEnvelopeGenerator.h"
-#include <cmath>
-
-static const char* const segNames[] = { "idle", "attack", "decay", "sustain", "release" };
 
 SynthEnvelopeGenerator::SynthEnvelopeGenerator()
     : sampleRateHz(44100)
@@ -17,8 +14,6 @@ SynthEnvelopeGenerator::SynthEnvelopeGenerator()
 
 void SynthEnvelopeGenerator::start (double _sampleRateHz)
 {
-    //Logger::writeToLog(String("EG start ") + String(segNames[segment]));
-
     sampleRateHz = _sampleRateHz;
 
     if (segment == kIdle)

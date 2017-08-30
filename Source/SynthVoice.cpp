@@ -78,10 +78,10 @@ void SynthVoice::setup (bool pitchBendOnly)
 
     if (!pitchBendOnly)
     {
-    ampEG.attackSeconds = pParams->ampEgAttackTimeSeconds;
-    ampEG.decaySeconds = pParams->ampEgDecayTimeSeconds;
-    ampEG.sustainLevel = pParams->ampEgSustainLevel;
-    ampEG.releaseSeconds = pParams->ampEgReleaseTimeSeconds;
+        ampEG.attackSeconds = pParams->ampEgAttackTimeSeconds;
+        ampEG.decaySeconds = pParams->ampEgDecayTimeSeconds;
+        ampEG.sustainLevel = pParams->ampEgSustainLevel;
+        ampEG.releaseSeconds = pParams->ampEgReleaseTimeSeconds;
     }
 }
 
@@ -144,8 +144,9 @@ void SynthVoice::renderNextBlock(AudioSampleBuffer& outputBuffer, int startSampl
         }
         float aeg = ampEG.getSample();
         float osc = osc1.getSample() * osc1Level.getNextValue() + osc2.getSample() * osc2Level.getNextValue();
-        outputBuffer.addSample(0, startSample, osc * aeg);
-        outputBuffer.addSample(1, startSample, osc * aeg);
+        float sample = aeg * osc;
+        outputBuffer.addSample(0, startSample, sample);
+        outputBuffer.addSample(1, startSample, sample);
         ++startSample;
     }
 }
