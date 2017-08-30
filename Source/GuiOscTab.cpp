@@ -107,8 +107,6 @@ GuiOscTab::GuiOscTab (SynthSound* pSynthSound)
     oscBlendSlider->addListener(this);
 
     notify();
-
-    setSize (600, 400);
 }
 
 GuiOscTab::~GuiOscTab()

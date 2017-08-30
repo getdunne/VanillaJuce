@@ -44,8 +44,6 @@ GuiMainTab::GuiMainTab (SynthSound* pSynthSound)
     pbDownSlider->addListener(this);
 
     notify();
-
-    setSize (600, 400);
 }
 
 GuiMainTab::~GuiMainTab()

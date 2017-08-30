@@ -60,8 +60,6 @@ GuiEgTab::GuiEgTab (SynthSound* pSynthSound)
     releaseSlider->addListener (this);
 
     notify();
-
-    setSize (600, 400);
 }
 
 GuiEgTab::~GuiEgTab()
