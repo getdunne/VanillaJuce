@@ -1,6 +1,6 @@
 #pragma once
 /*
-	Class Synth represents the Synthesizer itself. It derives from juce::Synthsiser,
+	Class Synth represents the Synthesizer itself. It derives from juce::Synthesiser,
 	and adds a member function to notify all active voices when any sound parameter
 	changes, e.g. when a change has been made in the GUI editor, or due to parameter
 	automation from the plugin host (DAW).
