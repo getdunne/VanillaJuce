@@ -46,7 +46,6 @@ public:
 
 public:
 	SynthSound* getSound() { return pSound; }
-	SynthParameters* getSoundParameters() { return pSound->pParams; }
 
 private:
 	Synth synth;
