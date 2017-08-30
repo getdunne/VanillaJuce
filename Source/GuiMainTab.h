@@ -12,17 +12,17 @@ public:
     void resized() override;
     void sliderValueChanged (Slider* sliderThatWasMoved) override;
 
-	void notify();
+    void notify();
 
 private:
-	SynthSound* pSound;
+    SynthSound* pSound;
 
     ScopedPointer<Label> masterLevelLabel;
     ScopedPointer<Slider> masterLevelSlider;
-	ScopedPointer<Label> pbUpLabel;
-	ScopedPointer<Slider> pbUpSlider;
-	ScopedPointer<Label> pbDownLabel;
-	ScopedPointer<Slider> pbDownSlider;
+    ScopedPointer<Label> pbUpLabel;
+    ScopedPointer<Slider> pbUpSlider;
+    ScopedPointer<Label> pbDownLabel;
+    ScopedPointer<Slider> pbDownSlider;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (GuiMainTab)
 };

@@ -13,10 +13,10 @@ public:
     void resized() override;
     void sliderValueChanged (Slider* sliderThatWasMoved) override;
 
-	void notify();
+    void notify();
 
 private:
-	SynthSound* pSound;
+    SynthSound* pSound;
 
     ScopedPointer<Label> attackLabel;
     ScopedPointer<Slider> attackSlider;

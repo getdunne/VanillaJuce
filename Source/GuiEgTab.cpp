@@ -1,7 +1,7 @@
 #include "GuiEgTab.h"
 
 GuiEgTab::GuiEgTab (SynthSound* pSynthSound)
-	: pSound(pSynthSound)
+    : pSound(pSynthSound)
 {
     addAndMakeVisible (attackLabel = new Label ("attack label",
                                                 TRANS("Attack Time (sec)")));
@@ -33,11 +33,11 @@ GuiEgTab::GuiEgTab (SynthSound* pSynthSound)
 
     addAndMakeVisible (sustainLabel = new Label ("sustain level label",
                                                  TRANS("Sustain Level (%)")));
-	sustainLabel->setFont (Font (15.00f, Font::plain).withTypefaceStyle ("Regular"));
-	sustainLabel->setJustificationType (Justification::centredRight);
-	sustainLabel->setEditable (false, false, false);
-	sustainLabel->setColour (TextEditor::textColourId, Colours::black);
-	sustainLabel->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
+    sustainLabel->setFont (Font (15.00f, Font::plain).withTypefaceStyle ("Regular"));
+    sustainLabel->setJustificationType (Justification::centredRight);
+    sustainLabel->setEditable (false, false, false);
+    sustainLabel->setColour (TextEditor::textColourId, Colours::black);
+    sustainLabel->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
 
     addAndMakeVisible (sustainSlider = new Slider ("sustain level slider"));
     sustainSlider->setRange (0, 100, 1);
@@ -47,19 +47,19 @@ GuiEgTab::GuiEgTab (SynthSound* pSynthSound)
 
     addAndMakeVisible (releaseLabel = new Label ("release time label",
                                               TRANS("Release Time (sec)")));
-	releaseLabel->setFont (Font (15.00f, Font::plain).withTypefaceStyle ("Regular"));
-	releaseLabel->setJustificationType (Justification::centredRight);
-	releaseLabel->setEditable (false, false, false);
-	releaseLabel->setColour (TextEditor::textColourId, Colours::black);
-	releaseLabel->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
+    releaseLabel->setFont (Font (15.00f, Font::plain).withTypefaceStyle ("Regular"));
+    releaseLabel->setJustificationType (Justification::centredRight);
+    releaseLabel->setEditable (false, false, false);
+    releaseLabel->setColour (TextEditor::textColourId, Colours::black);
+    releaseLabel->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
 
     addAndMakeVisible (releaseSlider = new Slider ("release time slider"));
-	releaseSlider->setRange (0, 10, 0);
-	releaseSlider->setSliderStyle (Slider::LinearHorizontal);
-	releaseSlider->setTextBoxStyle (Slider::TextBoxRight, false, 80, 20);
-	releaseSlider->addListener (this);
+    releaseSlider->setRange (0, 10, 0);
+    releaseSlider->setSliderStyle (Slider::LinearHorizontal);
+    releaseSlider->setTextBoxStyle (Slider::TextBoxRight, false, 80, 20);
+    releaseSlider->addListener (this);
 
-	notify();
+    notify();
 
     setSize (600, 400);
 }
@@ -84,55 +84,55 @@ void GuiEgTab::paint (Graphics& g)
 
 void GuiEgTab::resized()
 {
-	const int labelLeft = 16;
-	const int controlLeft = 144;
-	const int labelWidth = 120;
-	const int sliderWidth = 420;
-	const int controlHeight = 24;
-	const int gapHeight = 8;
+    const int labelLeft = 16;
+    const int controlLeft = 144;
+    const int labelWidth = 120;
+    const int sliderWidth = 420;
+    const int controlHeight = 24;
+    const int gapHeight = 8;
 
-	int top = 20;
-	attackLabel->setBounds (labelLeft, top, labelWidth, controlHeight);
+    int top = 20;
+    attackLabel->setBounds (labelLeft, top, labelWidth, controlHeight);
     attackSlider->setBounds (controlLeft, top, sliderWidth, controlHeight);
-	top += controlHeight + gapHeight;
+    top += controlHeight + gapHeight;
     decayLabel->setBounds (labelLeft, top, labelWidth, controlHeight);
     decaySlider->setBounds (controlLeft, top, sliderWidth, controlHeight);
-	top += controlHeight + gapHeight;
-	sustainLabel->setBounds (labelLeft, top, labelWidth, controlHeight);
+    top += controlHeight + gapHeight;
+    sustainLabel->setBounds (labelLeft, top, labelWidth, controlHeight);
     sustainSlider->setBounds (controlLeft, top, sliderWidth, controlHeight);
-	top += controlHeight + gapHeight;
-	releaseLabel->setBounds (labelLeft, top, labelWidth, controlHeight);
+    top += controlHeight + gapHeight;
+    releaseLabel->setBounds (labelLeft, top, labelWidth, controlHeight);
     releaseSlider->setBounds (controlLeft, top, sliderWidth, controlHeight);
 }
 
 void GuiEgTab::sliderValueChanged (Slider* sliderThatWasMoved)
 {
-	double value = sliderThatWasMoved->getValue();
-	SynthParameters* pParams = pSound->pParams;
-	if (sliderThatWasMoved == attackSlider)
+    double value = sliderThatWasMoved->getValue();
+    SynthParameters* pParams = pSound->pParams;
+    if (sliderThatWasMoved == attackSlider)
     {
-		pParams->ampEgAttackTimeSeconds = value;
+        pParams->ampEgAttackTimeSeconds = value;
     }
     else if (sliderThatWasMoved == decaySlider)
     {
-		pParams->ampEgDecayTimeSeconds = value;
+        pParams->ampEgDecayTimeSeconds = value;
     }
     else if (sliderThatWasMoved == sustainSlider)
     {
-		pParams->ampEgSustainLevel = 0.01 * value;
+        pParams->ampEgSustainLevel = 0.01 * value;
     }
     else if (sliderThatWasMoved == releaseSlider)
     {
-		pParams->ampEgReleaseTimeSeconds = value;
+        pParams->ampEgReleaseTimeSeconds = value;
     }
-	pSound->parameterChanged();
+    pSound->parameterChanged();
 }
 
 void GuiEgTab::notify()
 {
-	SynthParameters* pParams = pSound->pParams;
-	attackSlider->setValue(pParams->ampEgAttackTimeSeconds);
-	decaySlider->setValue(pParams->ampEgDecayTimeSeconds);
-	sustainSlider->setValue(100.0 * pParams->ampEgSustainLevel);
-	releaseSlider->setValue(pParams->ampEgReleaseTimeSeconds);
+    SynthParameters* pParams = pSound->pParams;
+    attackSlider->setValue(pParams->ampEgAttackTimeSeconds);
+    decaySlider->setValue(pParams->ampEgDecayTimeSeconds);
+    sustainSlider->setValue(100.0 * pParams->ampEgSustainLevel);
+    releaseSlider->setValue(pParams->ampEgReleaseTimeSeconds);
 }

@@ -7,19 +7,19 @@
 #define kNumberOfPrograms 128
 
 class VanillaJuceAudioProcessor
-	: public AudioProcessor
-	, public ChangeBroadcaster
+    : public AudioProcessor
+    , public ChangeBroadcaster
 {
 public:
-	enum
-	{
-		maxNumberOfVoices = 16
-	};
+    enum
+    {
+        maxNumberOfVoices = 16
+    };
 
     VanillaJuceAudioProcessor();
     virtual ~VanillaJuceAudioProcessor();
 
-	void prepareToPlay (double sampleRate, int samplesPerBlock) override;
+    void prepareToPlay (double sampleRate, int samplesPerBlock) override;
     void releaseResources() override;
 
     void processBlock (AudioSampleBuffer&, MidiBuffer&) override;
@@ -41,20 +41,20 @@ public:
 
     void getStateInformation (MemoryBlock& destData) override;
     void setStateInformation (const void* data, int sizeInBytes) override;
-	void getCurrentProgramStateInformation(MemoryBlock& destData) override;
-	void setCurrentProgramStateInformation(const void* data, int sizeInBytes) override;
+    void getCurrentProgramStateInformation(MemoryBlock& destData) override;
+    void setCurrentProgramStateInformation(const void* data, int sizeInBytes) override;
 
 public:
-	SynthSound* getSound() { return pSound; }
+    SynthSound* getSound() { return pSound; }
 
 private:
-	Synth synth;
-	SynthSound* pSound;
-	SynthParameters programBank[kNumberOfPrograms];
-	int currentProgram;
+    Synth synth;
+    SynthSound* pSound;
+    SynthParameters programBank[kNumberOfPrograms];
+    int currentProgram;
 
 private:
-	void initializePrograms();
+    void initializePrograms();
 
-	JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (VanillaJuceAudioProcessor)
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (VanillaJuceAudioProcessor)
 };

@@ -3,10 +3,10 @@
 
 typedef enum
 {
-	kSine,
-	kTriangle,
-	kSquare,
-	kSawtooth
+    kSine,
+    kTriangle,
+    kSquare,
+    kSawtooth
 } SynthOscillatorWaveform;
 
 #define kMaxProgramNameLength 24
@@ -14,13 +14,13 @@ typedef enum
 class SynthParameters
 {
 public:
-	char programName[1 + kMaxProgramNameLength];	// 1 extra byte for null terminator
+    char programName[1 + kMaxProgramNameLength];    // 1 extra byte for null terminator
 
     // main
     double masterLevel;
-	double oscBlend;						// [0.0, 1.0] relative osc1 level
-	int pitchBendUpSemitones;
-	int pitchBendDownSemitones;
+    double oscBlend;                        // [0.0, 1.0] relative osc1 level
+    int pitchBendUpSemitones;
+    int pitchBendDownSemitones;
     
     // osc 1
     SynthOscillatorWaveform osc1Waveform;
@@ -39,10 +39,10 @@ public:
     double ampEgReleaseTimeSeconds;
 
 public:
-	// Set default values
-	void setDefaultValues();
+    // Set default values
+    void setDefaultValues();
 
-	// Save and Restore from XML
-	XmlElement* getXml();
-	void putXml(XmlElement* xml);
+    // Save and Restore from XML
+    XmlElement* getXml();
+    void putXml(XmlElement* xml);
 };

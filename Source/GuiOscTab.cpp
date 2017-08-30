@@ -1,7 +1,7 @@
 #include "GuiOscTab.h"
 
 GuiOscTab::GuiOscTab (SynthSound* pSynthSound)
-	: pSound(pSynthSound)
+    : pSound(pSynthSound)
 {
     addAndMakeVisible (wfLabel1 = new Label ("waveform label1", TRANS("Osc1 Waveform")));
     wfLabel1->setFont (Font (15.00f, Font::plain).withTypefaceStyle ("Regular"));
@@ -35,11 +35,11 @@ GuiOscTab::GuiOscTab (SynthSound* pSynthSound)
     semiSlider1->addListener (this);
 
     addAndMakeVisible (detuneLabel1 = new Label ("detune label1", TRANS("Detune (cents)")));
-	detuneLabel1->setFont (Font (15.00f, Font::plain).withTypefaceStyle ("Regular"));
-	detuneLabel1->setJustificationType (Justification::centredRight);
-	detuneLabel1->setEditable (false, false, false);
-	detuneLabel1->setColour (TextEditor::textColourId, Colours::black);
-	detuneLabel1->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
+    detuneLabel1->setFont (Font (15.00f, Font::plain).withTypefaceStyle ("Regular"));
+    detuneLabel1->setJustificationType (Justification::centredRight);
+    detuneLabel1->setEditable (false, false, false);
+    detuneLabel1->setColour (TextEditor::textColourId, Colours::black);
+    detuneLabel1->setColour (TextEditor::backgroundColourId, Colour (0x00000000));
 
     addAndMakeVisible (detuneSlider1 = new Slider ("detune slider1"));
     detuneSlider1->setRange (-50, 50, 0);
@@ -48,65 +48,65 @@ GuiOscTab::GuiOscTab (SynthSound* pSynthSound)
     detuneSlider1->addListener (this);
 
 
-	addAndMakeVisible(wfLabel2 = new Label("waveform label2", TRANS("Osc2 Waveform")));
-	wfLabel2->setFont(Font(15.00f, Font::plain).withTypefaceStyle("Regular"));
-	wfLabel2->setJustificationType(Justification::centredRight);
-	wfLabel2->setEditable(false, false, false);
-	wfLabel2->setColour(TextEditor::textColourId, Colours::black);
-	wfLabel2->setColour(TextEditor::backgroundColourId, Colour(0x00000000));
+    addAndMakeVisible(wfLabel2 = new Label("waveform label2", TRANS("Osc2 Waveform")));
+    wfLabel2->setFont(Font(15.00f, Font::plain).withTypefaceStyle("Regular"));
+    wfLabel2->setJustificationType(Justification::centredRight);
+    wfLabel2->setEditable(false, false, false);
+    wfLabel2->setColour(TextEditor::textColourId, Colours::black);
+    wfLabel2->setColour(TextEditor::backgroundColourId, Colour(0x00000000));
 
-	addAndMakeVisible(waveformCB2 = new ComboBox("waveform combo2"));
-	waveformCB2->setEditableText(false);
-	waveformCB2->setJustificationType(Justification::centredLeft);
-	waveformCB2->setTextWhenNothingSelected(String());
-	waveformCB2->setTextWhenNoChoicesAvailable(TRANS("(no choices)"));
-	waveformCB2->addItem(TRANS("Sine"), 1);
-	waveformCB2->addItem(TRANS("Triangle"), 2);
-	waveformCB2->addItem(TRANS("Square"), 3);
-	waveformCB2->addItem(TRANS("Sawtooth"), 4);
-	waveformCB2->addListener(this);
+    addAndMakeVisible(waveformCB2 = new ComboBox("waveform combo2"));
+    waveformCB2->setEditableText(false);
+    waveformCB2->setJustificationType(Justification::centredLeft);
+    waveformCB2->setTextWhenNothingSelected(String());
+    waveformCB2->setTextWhenNoChoicesAvailable(TRANS("(no choices)"));
+    waveformCB2->addItem(TRANS("Sine"), 1);
+    waveformCB2->addItem(TRANS("Triangle"), 2);
+    waveformCB2->addItem(TRANS("Square"), 3);
+    waveformCB2->addItem(TRANS("Sawtooth"), 4);
+    waveformCB2->addListener(this);
 
-	addAndMakeVisible(semiLabel2 = new Label("semitone offset label2", TRANS("Pitch (semitones)")));
-	semiLabel2->setFont(Font(15.00f, Font::plain).withTypefaceStyle("Regular"));
-	semiLabel2->setJustificationType(Justification::centredRight);
-	semiLabel2->setEditable(false, false, false);
-	semiLabel2->setColour(TextEditor::textColourId, Colours::black);
-	semiLabel2->setColour(TextEditor::backgroundColourId, Colour(0x00000000));
+    addAndMakeVisible(semiLabel2 = new Label("semitone offset label2", TRANS("Pitch (semitones)")));
+    semiLabel2->setFont(Font(15.00f, Font::plain).withTypefaceStyle("Regular"));
+    semiLabel2->setJustificationType(Justification::centredRight);
+    semiLabel2->setEditable(false, false, false);
+    semiLabel2->setColour(TextEditor::textColourId, Colours::black);
+    semiLabel2->setColour(TextEditor::backgroundColourId, Colour(0x00000000));
 
-	addAndMakeVisible(semiSlider2 = new Slider("semitone offset slider2"));
-	semiSlider2->setRange(-24, 24, 1);
-	semiSlider2->setSliderStyle(Slider::LinearHorizontal);
-	semiSlider2->setTextBoxStyle(Slider::TextBoxRight, false, 80, 20);
-	semiSlider2->addListener(this);
+    addAndMakeVisible(semiSlider2 = new Slider("semitone offset slider2"));
+    semiSlider2->setRange(-24, 24, 1);
+    semiSlider2->setSliderStyle(Slider::LinearHorizontal);
+    semiSlider2->setTextBoxStyle(Slider::TextBoxRight, false, 80, 20);
+    semiSlider2->addListener(this);
 
-	addAndMakeVisible(detuneLabel2 = new Label("detune label2", TRANS("Detune (cents)")));
-	detuneLabel2->setFont(Font(15.00f, Font::plain).withTypefaceStyle("Regular"));
-	detuneLabel2->setJustificationType(Justification::centredRight);
-	detuneLabel2->setEditable(false, false, false);
-	detuneLabel2->setColour(TextEditor::textColourId, Colours::black);
-	detuneLabel2->setColour(TextEditor::backgroundColourId, Colour(0x00000000));
+    addAndMakeVisible(detuneLabel2 = new Label("detune label2", TRANS("Detune (cents)")));
+    detuneLabel2->setFont(Font(15.00f, Font::plain).withTypefaceStyle("Regular"));
+    detuneLabel2->setJustificationType(Justification::centredRight);
+    detuneLabel2->setEditable(false, false, false);
+    detuneLabel2->setColour(TextEditor::textColourId, Colours::black);
+    detuneLabel2->setColour(TextEditor::backgroundColourId, Colour(0x00000000));
 
-	addAndMakeVisible(detuneSlider2 = new Slider("detune slider2"));
-	detuneSlider2->setRange(-50, 50, 0);
-	detuneSlider2->setSliderStyle(Slider::LinearHorizontal);
-	detuneSlider2->setTextBoxStyle(Slider::TextBoxRight, false, 80, 20);
-	detuneSlider2->addListener(this);
+    addAndMakeVisible(detuneSlider2 = new Slider("detune slider2"));
+    detuneSlider2->setRange(-50, 50, 0);
+    detuneSlider2->setSliderStyle(Slider::LinearHorizontal);
+    detuneSlider2->setTextBoxStyle(Slider::TextBoxRight, false, 80, 20);
+    detuneSlider2->addListener(this);
 
 
-	addAndMakeVisible(oscBlendLabel = new Label("osc blend label", TRANS("Blend")));
-	oscBlendLabel->setFont(Font(15.00f, Font::plain).withTypefaceStyle("Regular"));
-	oscBlendLabel->setJustificationType(Justification::centred);
-	oscBlendLabel->setEditable(false, false, false);
-	oscBlendLabel->setColour(TextEditor::textColourId, Colours::black);
-	oscBlendLabel->setColour(TextEditor::backgroundColourId, Colour(0x00000000));
+    addAndMakeVisible(oscBlendLabel = new Label("osc blend label", TRANS("Blend")));
+    oscBlendLabel->setFont(Font(15.00f, Font::plain).withTypefaceStyle("Regular"));
+    oscBlendLabel->setJustificationType(Justification::centred);
+    oscBlendLabel->setEditable(false, false, false);
+    oscBlendLabel->setColour(TextEditor::textColourId, Colours::black);
+    oscBlendLabel->setColour(TextEditor::backgroundColourId, Colour(0x00000000));
 
-	addAndMakeVisible(oscBlendSlider = new Slider("Osc1 Percent"));
-	oscBlendSlider->setRange(0, 100, 0);
-	oscBlendSlider->setSliderStyle(Slider::LinearVertical);
-	oscBlendSlider->setTextBoxStyle(Slider::TextBoxAbove, false, 80, 20);
-	oscBlendSlider->addListener(this);
+    addAndMakeVisible(oscBlendSlider = new Slider("Osc1 Percent"));
+    oscBlendSlider->setRange(0, 100, 0);
+    oscBlendSlider->setSliderStyle(Slider::LinearVertical);
+    oscBlendSlider->setTextBoxStyle(Slider::TextBoxAbove, false, 80, 20);
+    oscBlendSlider->addListener(this);
 
-	notify();
+    notify();
 
     setSize (600, 400);
 }
@@ -120,15 +120,15 @@ GuiOscTab::~GuiOscTab()
     detuneLabel1 = nullptr;
     detuneSlider1 = nullptr;
 
-	wfLabel2 = nullptr;
-	waveformCB2 = nullptr;
-	semiLabel2 = nullptr;
-	semiSlider2 = nullptr;
-	detuneLabel2 = nullptr;
-	detuneSlider2 = nullptr;
+    wfLabel2 = nullptr;
+    waveformCB2 = nullptr;
+    semiLabel2 = nullptr;
+    semiSlider2 = nullptr;
+    detuneLabel2 = nullptr;
+    detuneSlider2 = nullptr;
 
-	oscBlendLabel = nullptr;
-	oscBlendSlider = nullptr;
+    oscBlendLabel = nullptr;
+    oscBlendSlider = nullptr;
 }
 
 //==============================================================================
@@ -139,96 +139,96 @@ void GuiOscTab::paint (Graphics& g)
 
 void GuiOscTab::resized()
 {
-	const int labelLeft = 16;
-	const int controlLeft = 144;
-	const int labelWidth = 120;
-	const int cboxWidth = 150;
-	const int sliderWidth = 344;
-	const int controlHeight = 24;
-	const int gapHeight = 8;
-	const int blendSliderLeft = 510;
-	const int blendSliderWidth = 60;
-	const int blendSliderHeight = 240;
+    const int labelLeft = 16;
+    const int controlLeft = 144;
+    const int labelWidth = 120;
+    const int cboxWidth = 150;
+    const int sliderWidth = 344;
+    const int controlHeight = 24;
+    const int gapHeight = 8;
+    const int blendSliderLeft = 510;
+    const int blendSliderWidth = 60;
+    const int blendSliderHeight = 240;
 
-	int top = 20;
+    int top = 20;
     wfLabel1->setBounds (labelLeft, top, labelWidth, controlHeight);
     waveformCB1->setBounds (controlLeft, top, cboxWidth, controlHeight);
-	top += controlHeight + gapHeight;
+    top += controlHeight + gapHeight;
     semiLabel1->setBounds (labelLeft, top, labelWidth, controlHeight);
     semiSlider1->setBounds (controlLeft, top, sliderWidth, controlHeight);
-	top += controlHeight + gapHeight;
-	detuneLabel1->setBounds (labelLeft, top, labelWidth, controlHeight);
+    top += controlHeight + gapHeight;
+    detuneLabel1->setBounds (labelLeft, top, labelWidth, controlHeight);
     detuneSlider1->setBounds (controlLeft, top, sliderWidth, controlHeight);
 
-	top += controlHeight + 5 * gapHeight;
-	wfLabel2->setBounds(labelLeft, top, labelWidth, controlHeight);
-	waveformCB2->setBounds(controlLeft, top, cboxWidth, controlHeight);
-	top += controlHeight + gapHeight;
-	semiLabel2->setBounds(labelLeft, top, labelWidth, controlHeight);
-	semiSlider2->setBounds(controlLeft, top, sliderWidth, controlHeight);
-	top += controlHeight + gapHeight;
-	detuneLabel2->setBounds(labelLeft, top, labelWidth, controlHeight);
-	detuneSlider2->setBounds(controlLeft, top, sliderWidth, controlHeight);
+    top += controlHeight + 5 * gapHeight;
+    wfLabel2->setBounds(labelLeft, top, labelWidth, controlHeight);
+    waveformCB2->setBounds(controlLeft, top, cboxWidth, controlHeight);
+    top += controlHeight + gapHeight;
+    semiLabel2->setBounds(labelLeft, top, labelWidth, controlHeight);
+    semiSlider2->setBounds(controlLeft, top, sliderWidth, controlHeight);
+    top += controlHeight + gapHeight;
+    detuneLabel2->setBounds(labelLeft, top, labelWidth, controlHeight);
+    detuneSlider2->setBounds(controlLeft, top, sliderWidth, controlHeight);
 
-	top = 20;
-	oscBlendSlider->setBounds(blendSliderLeft, top, blendSliderWidth, blendSliderHeight);
-	top += blendSliderHeight + gapHeight;
-	oscBlendLabel->setBounds(blendSliderLeft+ blendSliderWidth /2-labelWidth/2, top, labelWidth, controlHeight);
+    top = 20;
+    oscBlendSlider->setBounds(blendSliderLeft, top, blendSliderWidth, blendSliderHeight);
+    top += blendSliderHeight + gapHeight;
+    oscBlendLabel->setBounds(blendSliderLeft+ blendSliderWidth /2-labelWidth/2, top, labelWidth, controlHeight);
 }
 
 void GuiOscTab::comboBoxChanged (ComboBox* comboBoxThatHasChanged)
 {
-	SynthOscillatorWaveform wf = (SynthOscillatorWaveform)(kSine + comboBoxThatHasChanged->getSelectedItemIndex());
-	SynthParameters* pParams = pSound->pParams;
-	if (comboBoxThatHasChanged == waveformCB1)
+    SynthOscillatorWaveform wf = (SynthOscillatorWaveform)(kSine + comboBoxThatHasChanged->getSelectedItemIndex());
+    SynthParameters* pParams = pSound->pParams;
+    if (comboBoxThatHasChanged == waveformCB1)
     {
-		pParams->osc1Waveform = wf;
+        pParams->osc1Waveform = wf;
     }
-	else if (comboBoxThatHasChanged == waveformCB2)
-	{
-		pParams->osc2Waveform = wf;
-	}
-	pSound->parameterChanged();
+    else if (comboBoxThatHasChanged == waveformCB2)
+    {
+        pParams->osc2Waveform = wf;
+    }
+    pSound->parameterChanged();
 }
 
 void GuiOscTab::sliderValueChanged (Slider* sliderThatWasMoved)
 {
-	double value = sliderThatWasMoved->getValue();
-	SynthParameters* pParams = pSound->pParams;
-	if (sliderThatWasMoved == semiSlider1)
+    double value = sliderThatWasMoved->getValue();
+    SynthParameters* pParams = pSound->pParams;
+    if (sliderThatWasMoved == semiSlider1)
     {
-		pParams->osc1PitchOffsetSemitones = int(value);
+        pParams->osc1PitchOffsetSemitones = int(value);
     }
-	else if (sliderThatWasMoved == semiSlider2)
-	{
-		pParams->osc2PitchOffsetSemitones = int(value);
-	}
-	else if (sliderThatWasMoved == detuneSlider1)
+    else if (sliderThatWasMoved == semiSlider2)
     {
-		pParams->osc1DetuneOffsetCents = value;
-	}
-	else if (sliderThatWasMoved == detuneSlider2)
-	{
-		pParams->osc2DetuneOffsetCents = value;
-	}
-	else if (sliderThatWasMoved == oscBlendSlider)
-	{
-		pParams->oscBlend = 0.01 * value;
-	}
-	pSound->parameterChanged();
+        pParams->osc2PitchOffsetSemitones = int(value);
+    }
+    else if (sliderThatWasMoved == detuneSlider1)
+    {
+        pParams->osc1DetuneOffsetCents = value;
+    }
+    else if (sliderThatWasMoved == detuneSlider2)
+    {
+        pParams->osc2DetuneOffsetCents = value;
+    }
+    else if (sliderThatWasMoved == oscBlendSlider)
+    {
+        pParams->oscBlend = 0.01 * value;
+    }
+    pSound->parameterChanged();
 }
 
 void GuiOscTab::notify()
 {
-	SynthParameters* pParams = pSound->pParams;
+    SynthParameters* pParams = pSound->pParams;
 
-	waveformCB1->setSelectedItemIndex(int(pParams->osc1Waveform - kSine));
-	semiSlider1->setValue(pParams->osc1PitchOffsetSemitones);
-	detuneSlider1->setValue(pParams->osc1DetuneOffsetCents);
+    waveformCB1->setSelectedItemIndex(int(pParams->osc1Waveform - kSine));
+    semiSlider1->setValue(pParams->osc1PitchOffsetSemitones);
+    detuneSlider1->setValue(pParams->osc1DetuneOffsetCents);
 
-	waveformCB2->setSelectedItemIndex(int(pParams->osc2Waveform - kSine));
-	semiSlider2->setValue(pParams->osc2PitchOffsetSemitones);
-	detuneSlider2->setValue(pParams->osc2DetuneOffsetCents);
+    waveformCB2->setSelectedItemIndex(int(pParams->osc2Waveform - kSine));
+    semiSlider2->setValue(pParams->osc2PitchOffsetSemitones);
+    detuneSlider2->setValue(pParams->osc2DetuneOffsetCents);
 
-	oscBlendSlider->setValue(100.0 * pParams->oscBlend);
+    oscBlendSlider->setValue(100.0 * pParams->oscBlend);
 }

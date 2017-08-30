@@ -15,10 +15,10 @@ public:
     void comboBoxChanged (ComboBox* comboBoxThatHasChanged) override;
     void sliderValueChanged (Slider* sliderThatWasMoved) override;
 
-	void notify();
+    void notify();
 
 private:
-	SynthSound* pSound;
+    SynthSound* pSound;
 
     ScopedPointer<Label> wfLabel1;
     ScopedPointer<ComboBox> waveformCB1;
@@ -27,15 +27,15 @@ private:
     ScopedPointer<Label> detuneLabel1;
     ScopedPointer<Slider> detuneSlider1;
 
-	ScopedPointer<Label> wfLabel2;
-	ScopedPointer<ComboBox> waveformCB2;
-	ScopedPointer<Label> semiLabel2;
-	ScopedPointer<Slider> semiSlider2;
-	ScopedPointer<Label> detuneLabel2;
-	ScopedPointer<Slider> detuneSlider2;
+    ScopedPointer<Label> wfLabel2;
+    ScopedPointer<ComboBox> waveformCB2;
+    ScopedPointer<Label> semiLabel2;
+    ScopedPointer<Slider> semiSlider2;
+    ScopedPointer<Label> detuneLabel2;
+    ScopedPointer<Slider> detuneSlider2;
 
-	ScopedPointer<Label> oscBlendLabel;
-	ScopedPointer<Slider> oscBlendSlider;
+    ScopedPointer<Label> oscBlendLabel;
+    ScopedPointer<Slider> oscBlendSlider;
 
-	JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (GuiOscTab)
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (GuiOscTab)
 };

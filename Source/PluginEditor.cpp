@@ -3,31 +3,31 @@
 
 VanillaJuceAudioProcessorEditor::VanillaJuceAudioProcessorEditor (VanillaJuceAudioProcessor& p)
     : AudioProcessorEditor (&p)
-	, processor (p)
-	, guiTabs(p.getSound())
+    , processor (p)
+    , guiTabs(p.getSound())
 {
     setSize (600, 400);
-	addAndMakeVisible(&guiTabs);
-	p.addChangeListener(this);
+    addAndMakeVisible(&guiTabs);
+    p.addChangeListener(this);
 }
 
 VanillaJuceAudioProcessorEditor::~VanillaJuceAudioProcessorEditor()
 {
-	processor.removeChangeListener(this);
+    processor.removeChangeListener(this);
 }
 
 void VanillaJuceAudioProcessorEditor::paint (Graphics& g)
 {
-	ignoreUnused(g);
+    ignoreUnused(g);
 }
 
 void VanillaJuceAudioProcessorEditor::resized()
 {
-	guiTabs.setBounds(0, 0, proportionOfWidth(1.0000f), proportionOfHeight(1.0000f));
+    guiTabs.setBounds(0, 0, proportionOfWidth(1.0000f), proportionOfHeight(1.0000f));
 }
 
 void VanillaJuceAudioProcessorEditor::changeListenerCallback(ChangeBroadcaster* source)
 {
-	ignoreUnused(source);
-	guiTabs.notify();
+    ignoreUnused(source);
+    guiTabs.notify();
 }
