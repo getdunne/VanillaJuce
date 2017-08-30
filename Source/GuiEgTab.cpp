@@ -64,14 +64,6 @@ GuiEgTab::GuiEgTab (SynthSound* pSynthSound)
 
 GuiEgTab::~GuiEgTab()
 {
-    attackLabel = nullptr;
-    attackSlider = nullptr;
-    decayLabel = nullptr;
-    decaySlider = nullptr;
-    sustainLabel = nullptr;
-    sustainSlider = nullptr;
-    releaseLabel = nullptr;
-    releaseSlider = nullptr;
 }
 
 //==============================================================================

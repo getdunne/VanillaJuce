@@ -48,12 +48,6 @@ GuiMainTab::GuiMainTab (SynthSound* pSynthSound)
 
 GuiMainTab::~GuiMainTab()
 {
-    masterLevelLabel = nullptr;
-    masterLevelSlider = nullptr;
-    pbUpLabel = nullptr;
-    pbUpSlider = nullptr;
-    pbDownLabel = nullptr;
-    pbDownSlider = nullptr;
 }
 
 //==============================================================================

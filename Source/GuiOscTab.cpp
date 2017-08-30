@@ -111,22 +111,6 @@ GuiOscTab::GuiOscTab (SynthSound* pSynthSound)
 
 GuiOscTab::~GuiOscTab()
 {
-    wfLabel1 = nullptr;
-    waveformCB1 = nullptr;
-    semiLabel1 = nullptr;
-    semiSlider1 = nullptr;
-    detuneLabel1 = nullptr;
-    detuneSlider1 = nullptr;
-
-    wfLabel2 = nullptr;
-    waveformCB2 = nullptr;
-    semiLabel2 = nullptr;
-    semiSlider2 = nullptr;
-    detuneLabel2 = nullptr;
-    detuneSlider2 = nullptr;
-
-    oscBlendLabel = nullptr;
-    oscBlendSlider = nullptr;
 }
 
 //==============================================================================

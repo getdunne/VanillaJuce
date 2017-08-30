@@ -12,8 +12,6 @@ GuiTabs::GuiTabs (SynthSound* pSynthSound)
 
 GuiTabs::~GuiTabs()
 {
-    // tabbedComponent will take care of deleting our tab objects
-    tabbedComponent = nullptr;
 }
 
 //==============================================================================
