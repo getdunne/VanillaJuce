@@ -52,6 +52,9 @@
         <FILE id="KRjXGL" name="SynthSound.h" compile="0" resource="0" file="Source/SynthSound.h"/>
         <FILE id="QXwWdW" name="SynthVoice.cpp" compile="1" resource="0" file="Source/SynthVoice.cpp"/>
         <FILE id="TVn4W3" name="SynthVoice.h" compile="0" resource="0" file="Source/SynthVoice.h"/>
+        <FILE id="aN8wgw" name="SynthWaveform.cpp" compile="1" resource="0"
+              file="Source/SynthWaveform.cpp"/>
+        <FILE id="FSgmh3" name="SynthWaveform.h" compile="0" resource="0" file="Source/SynthWaveform.h"/>
       </GROUP>
     </GROUP>
   </MAINGROUP>
