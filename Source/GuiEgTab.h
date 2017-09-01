@@ -7,7 +7,6 @@ class GuiEgTab  : public Component,
 {
 public:
     GuiEgTab (SynthSound* pSynthSound);
-    ~GuiEgTab();
 
     void paint (Graphics& g) override;
     void resized() override;
@@ -18,14 +17,8 @@ public:
 private:
     SynthSound* pSound;
 
-    ScopedPointer<Label> attackLabel;
-    ScopedPointer<Slider> attackSlider;
-    ScopedPointer<Label> decayLabel;
-    ScopedPointer<Slider> decaySlider;
-    ScopedPointer<Label> sustainLabel;
-    ScopedPointer<Slider> sustainSlider;
-    ScopedPointer<Label> releaseLabel;
-    ScopedPointer<Slider> releaseSlider;
+    Label attackLabel, decayLabel, sustainLabel, releaseLabel;
+    Slider attackSlider, decaySlider, sustainSlider, releaseSlider;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (GuiEgTab)
 };
