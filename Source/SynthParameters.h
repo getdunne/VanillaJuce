@@ -1,20 +1,11 @@
 #pragma once
 #include "../JuceLibraryCode/JuceHeader.h"
-
-typedef enum
-{
-    kSine,
-    kTriangle,
-    kSquare,
-    kSawtooth
-} SynthOscillatorWaveform;
-
-#define kMaxProgramNameLength 24
+#include "SynthWaveform.h"
 
 class SynthParameters
 {
 public:
-    char programName[1 + kMaxProgramNameLength];    // 1 extra byte for null terminator
+    String programName;
 
     // main
     double masterLevel;
@@ -23,12 +14,12 @@ public:
     int pitchBendDownSemitones;
     
     // osc 1
-    SynthOscillatorWaveform osc1Waveform;
+    SynthWaveform osc1Waveform;
     int osc1PitchOffsetSemitones;
     double osc1DetuneOffsetCents;
     
     // osc 2
-    SynthOscillatorWaveform osc2Waveform;
+    SynthWaveform osc2Waveform;
     int osc2PitchOffsetSemitones;
     double osc2DetuneOffsetCents;
     

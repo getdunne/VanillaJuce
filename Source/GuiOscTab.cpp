@@ -13,12 +13,9 @@ GuiOscTab::GuiOscTab (SynthSound* pSynthSound)
     addAndMakeVisible (waveformCB1 = new ComboBox ("waveform combo1"));
     waveformCB1->setEditableText (false);
     waveformCB1->setJustificationType (Justification::centredLeft);
-    waveformCB1->setTextWhenNothingSelected (String());
+    waveformCB1->setTextWhenNothingSelected ("");
     waveformCB1->setTextWhenNoChoicesAvailable (TRANS("(no choices)"));
-    waveformCB1->addItem (TRANS("Sine"), 1);
-    waveformCB1->addItem (TRANS("Triangle"), 2);
-    waveformCB1->addItem (TRANS("Square"), 3);
-    waveformCB1->addItem (TRANS("Sawtooth"), 4);
+    SynthWaveform::setupComboBox(*waveformCB1);
     waveformCB1->addListener (this);
 
     addAndMakeVisible (semiLabel1 = new Label ("semitone offset label1", TRANS("Pitch (semitones)")));
@@ -58,12 +55,9 @@ GuiOscTab::GuiOscTab (SynthSound* pSynthSound)
     addAndMakeVisible(waveformCB2 = new ComboBox("waveform combo2"));
     waveformCB2->setEditableText(false);
     waveformCB2->setJustificationType(Justification::centredLeft);
-    waveformCB2->setTextWhenNothingSelected(String());
+    waveformCB2->setTextWhenNothingSelected("");
     waveformCB2->setTextWhenNoChoicesAvailable(TRANS("(no choices)"));
-    waveformCB2->addItem(TRANS("Sine"), 1);
-    waveformCB2->addItem(TRANS("Triangle"), 2);
-    waveformCB2->addItem(TRANS("Square"), 3);
-    waveformCB2->addItem(TRANS("Sawtooth"), 4);
+    SynthWaveform::setupComboBox(*waveformCB2);
     waveformCB2->addListener(this);
 
     addAndMakeVisible(semiLabel2 = new Label("semitone offset label2", TRANS("Pitch (semitones)")));
@@ -160,15 +154,14 @@ void GuiOscTab::resized()
 
 void GuiOscTab::comboBoxChanged (ComboBox* comboBoxThatHasChanged)
 {
-    SynthOscillatorWaveform wf = (SynthOscillatorWaveform)(kSine + comboBoxThatHasChanged->getSelectedItemIndex());
     SynthParameters* pParams = pSound->pParams;
     if (comboBoxThatHasChanged == waveformCB1)
     {
-        pParams->osc1Waveform = wf;
+        pParams->osc1Waveform.fromComboBox(*comboBoxThatHasChanged);
     }
     else if (comboBoxThatHasChanged == waveformCB2)
     {
-        pParams->osc2Waveform = wf;
+        pParams->osc2Waveform.fromComboBox(*comboBoxThatHasChanged);
     }
     pSound->parameterChanged();
 }
@@ -204,11 +197,11 @@ void GuiOscTab::notify()
 {
     SynthParameters* pParams = pSound->pParams;
 
-    waveformCB1->setSelectedItemIndex(int(pParams->osc1Waveform - kSine));
+    pParams->osc1Waveform.toComboBox(*waveformCB1);
     semiSlider1->setValue(pParams->osc1PitchOffsetSemitones);
     detuneSlider1->setValue(pParams->osc1DetuneOffsetCents);
 
-    waveformCB2->setSelectedItemIndex(int(pParams->osc2Waveform - kSine));
+    pParams->osc2Waveform.toComboBox(*waveformCB2);
     semiSlider2->setValue(pParams->osc2PitchOffsetSemitones);
     detuneSlider2->setValue(pParams->osc2DetuneOffsetCents);
 

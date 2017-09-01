@@ -7,7 +7,7 @@ VanillaJuceAudioProcessor::VanillaJuceAudioProcessor()
 {
     initializePrograms();
 
-    for (int i = 0; i < maxNumberOfVoices; ++i)
+    for (int i = 0; i < kNumberOfVoices; ++i)
         synth.addVoice(new SynthVoice());
 
     pSound = new SynthSound(synth);
@@ -27,7 +27,7 @@ void VanillaJuceAudioProcessor::initializePrograms()
 
 const String VanillaJuceAudioProcessor::getName() const
 {
-    return String(JucePlugin_Name);
+    return JucePlugin_Name;
 }
 
 bool VanillaJuceAudioProcessor::acceptsMidi() const
@@ -72,12 +72,12 @@ void VanillaJuceAudioProcessor::setCurrentProgram (int index)
 
 const String VanillaJuceAudioProcessor::getProgramName (int index)
 {
-    return String(programBank[index].programName);
+    return programBank[index].programName;
 }
 
 void VanillaJuceAudioProcessor::changeProgramName (int index, const String& newName)
 {
-    newName.copyToUTF8(programBank[index].programName, kMaxProgramNameLength);
+    programBank[index].programName = newName;
     sendChangeMessage();
 }
 
@@ -112,7 +112,7 @@ AudioProcessorEditor* VanillaJuceAudioProcessor::createEditor()
 void VanillaJuceAudioProcessor::getStateInformation (MemoryBlock& destData)
 {
     XmlElement xml = XmlElement("VanillaJuce");
-    xml.setAttribute(String("currentProgram"), currentProgram);
+    xml.setAttribute("currentProgram", currentProgram);
     XmlElement* xprogs = new XmlElement("programs");
     for (int i = 0; i < kNumberOfPrograms; i++)
         xprogs->addChildElement(programBank[i].getXml());
@@ -124,7 +124,7 @@ void VanillaJuceAudioProcessor::setStateInformation (const void* data, int sizeI
 {
     ScopedPointer<XmlElement> xml = getXmlFromBinary(data, sizeInBytes);
     XmlElement* xprogs = xml->getFirstChildElement();
-    if (xprogs->hasTagName(String("programs")))
+    if (xprogs->hasTagName("programs"))
     {
         int i = 0;
         forEachXmlChildElement(*xprogs, xpr)
@@ -134,7 +134,7 @@ void VanillaJuceAudioProcessor::setStateInformation (const void* data, int sizeI
             i++;
         }
     }
-    setCurrentProgram(xml->getIntAttribute(String("currentProgram"), 0));
+    setCurrentProgram(xml->getIntAttribute("currentProgram", 0));
 }
 
 void VanillaJuceAudioProcessor::getCurrentProgramStateInformation(MemoryBlock& destData)

@@ -2,15 +2,15 @@
 
 void SynthParameters::setDefaultValues()
 {
-    sprintf(programName, "Default");
+    programName = "Default";
     masterLevel = 0.15;
     oscBlend= 0.5;
     pitchBendUpSemitones = 2;
     pitchBendDownSemitones = 2;
-    osc1Waveform = kSine;
+    osc1Waveform.setToDefault();
     osc1PitchOffsetSemitones = 0;
     osc1DetuneOffsetCents = -10.0;
-    osc2Waveform = kSine;
+    osc2Waveform.setToDefault();
     osc2PitchOffsetSemitones = 0;
     osc2DetuneOffsetCents = +10.0;
     ampEgAttackTimeSeconds = 0.1;
@@ -19,63 +19,47 @@ void SynthParameters::setDefaultValues()
     ampEgReleaseTimeSeconds = 0.5;
 }
 
-const char* WFname[] = { "Sine", "Triangle", "Square", "Sawtooth" };
-
-static SynthOscillatorWaveform LookupWF(String wfname)
-{
-    int wfIndex = 0;
-    for (int i = 0; i < 4; i++)
-    {
-        if (!strcmp(wfname.toUTF8(), WFname[i]))
-        {
-            wfIndex = i;
-            break;
-        }
-    }
-    return (SynthOscillatorWaveform)wfIndex;
-}
-
 XmlElement* SynthParameters::getXml()
 {
     XmlElement* xml = new XmlElement("program");
 
-    xml->setAttribute(String("name"), String(programName));
+    xml->setAttribute("name", programName);
 
-    xml->setAttribute(String("masterLevel"), masterLevel);
-    xml->setAttribute(String("oscBlend"), oscBlend);
-    xml->setAttribute(String("pitchBendUpSemitones"), pitchBendUpSemitones);
-    xml->setAttribute(String("pitchBendDownSemitones"), pitchBendDownSemitones);
+    xml->setAttribute("masterLevel", masterLevel);
+    xml->setAttribute("oscBlend", oscBlend);
+    xml->setAttribute("pitchBendUpSemitones", pitchBendUpSemitones);
+    xml->setAttribute("pitchBendDownSemitones", pitchBendDownSemitones);
 
-    xml->setAttribute(String("osc1Waveform"), String(WFname[osc1Waveform]));
-    xml->setAttribute(String("osc1PitchOffsetSemitones"), osc1PitchOffsetSemitones);
-    xml->setAttribute(String("osc1DetuneOffsetCents"), osc1DetuneOffsetCents);
+    xml->setAttribute("osc1Waveform", osc1Waveform.name());
+    xml->setAttribute("osc1PitchOffsetSemitones", osc1PitchOffsetSemitones);
+    xml->setAttribute("osc1DetuneOffsetCents", osc1DetuneOffsetCents);
 
-    xml->setAttribute(String("osc2Waveform"), String(WFname[osc2Waveform]));
-    xml->setAttribute(String("osc2PitchOffsetSemitones"), osc2PitchOffsetSemitones);
-    xml->setAttribute(String("osc2DetuneOffsetCents"), osc2DetuneOffsetCents);
+    xml->setAttribute("osc2Waveform", osc2Waveform.name());
+    xml->setAttribute("osc2PitchOffsetSemitones", osc2PitchOffsetSemitones);
+    xml->setAttribute("osc2DetuneOffsetCents", osc2DetuneOffsetCents);
 
-    xml->setAttribute(String("ampEgAttackTimeSeconds"), ampEgAttackTimeSeconds);
-    xml->setAttribute(String("ampEgDecayTimeSeconds"), ampEgDecayTimeSeconds);
-    xml->setAttribute(String("ampEgSustainLevel"), ampEgSustainLevel);
-    xml->setAttribute(String("ampEgReleaseTimeSeconds"), ampEgReleaseTimeSeconds);
+    xml->setAttribute("ampEgAttackTimeSeconds", ampEgAttackTimeSeconds);
+    xml->setAttribute("ampEgDecayTimeSeconds", ampEgDecayTimeSeconds);
+    xml->setAttribute("ampEgSustainLevel", ampEgSustainLevel);
+    xml->setAttribute("ampEgReleaseTimeSeconds", ampEgReleaseTimeSeconds);
 
     return xml;
 }
 
 void SynthParameters::putXml(XmlElement* xml)
 {
-    xml->getStringAttribute("name").copyToUTF8(programName, sizeof(programName));
+    programName = xml->getStringAttribute("name");
 
     masterLevel = xml->getDoubleAttribute("masterLevel");
     oscBlend = xml->getDoubleAttribute("oscBlend");
     pitchBendUpSemitones = xml->getIntAttribute("pitchBendUpSemitones");
     pitchBendDownSemitones = xml->getIntAttribute("pitchBendDownSemitones");
 
-    osc1Waveform = LookupWF(xml->getStringAttribute("osc1Waveform"));
+    osc1Waveform.setFromName(xml->getStringAttribute("osc1Waveform"));
     osc1PitchOffsetSemitones = xml->getIntAttribute("osc1PitchOffsetSemitones");
     osc1DetuneOffsetCents = xml->getDoubleAttribute("osc1DetuneOffsetCents");
 
-    osc2Waveform = LookupWF(xml->getStringAttribute("osc2Waveform"));
+    osc2Waveform.setFromName(xml->getStringAttribute("osc2Waveform"));
     osc2PitchOffsetSemitones = xml->getIntAttribute("osc2PitchOffsetSemitones");
     osc2DetuneOffsetCents = xml->getDoubleAttribute("osc2DetuneOffsetCents");
 

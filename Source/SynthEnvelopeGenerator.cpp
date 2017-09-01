@@ -6,7 +6,7 @@ SynthEnvelopeGenerator::SynthEnvelopeGenerator()
     , decaySeconds(0.1)
     , releaseSeconds(0.5)
     , sustainLevel(0.5)
-    , segment(kIdle)
+    , segment(EG_Segment::idle)
 {
     interpolator.setValue(0.0);
     interpolator.reset(sampleRateHz, 0.0);
@@ -16,7 +16,7 @@ void SynthEnvelopeGenerator::start (double _sampleRateHz)
 {
     sampleRateHz = _sampleRateHz;
 
-    if (segment == kIdle)
+    if (segment == EG_Segment::idle)
     {
         // start new attack segment from zero
         interpolator.setValue(0.0);
@@ -31,13 +31,13 @@ void SynthEnvelopeGenerator::start (double _sampleRateHz)
         interpolator.reset(sampleRateHz, attackSeconds * (1.0 - currentValue));
     }
 
-    segment = kAttack;
+    segment = EG_Segment::attack;
     interpolator.setValue(1.0);
 }
 
 void SynthEnvelopeGenerator::release()
 {
-    segment = kRelease;
+    segment = EG_Segment::release;
     interpolator.setValue(interpolator.getNextValue());
     interpolator.reset(sampleRateHz, releaseSeconds);
     interpolator.setValue(0.0);
@@ -45,16 +45,16 @@ void SynthEnvelopeGenerator::release()
 
 float SynthEnvelopeGenerator::getSample()
 {
-    if (segment == kSustain) return float(sustainLevel);
+    if (segment == EG_Segment::sustain) return float(sustainLevel);
 
     if (interpolator.isSmoothing()) return float(interpolator.getNextValue());
 
-    if (segment == kAttack)    // end of attack segment
+    if (segment == EG_Segment::attack)    // end of attack segment
     {
         if (decaySeconds > 0.0)
         {
             // there is a decay segment
-            segment = kDecay;
+            segment = EG_Segment::decay;
             interpolator.reset(sampleRateHz, decaySeconds);
             interpolator.setValue(sustainLevel);
             return 1.0;
@@ -62,18 +62,18 @@ float SynthEnvelopeGenerator::getSample()
         else
         {
             // no decay segment; go straight to sustain
-            segment = kSustain;
+            segment = EG_Segment::sustain;
             return float(sustainLevel);
         }
     }
-    else if (segment == kDecay)    // end of decay segment
+    else if (segment == EG_Segment::decay)    // end of decay segment
     {
-        segment = kSustain;
+        segment = EG_Segment::sustain;
         return float(sustainLevel);
     }
-    else if (segment == kRelease)    // end of release
+    else if (segment == EG_Segment::release)    // end of release
     {
-        segment = kIdle;
+        segment = EG_Segment::idle;
     }
 
     // after end of release segment

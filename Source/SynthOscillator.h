@@ -4,15 +4,15 @@
 class SynthOscillator
 {
 private:
-    SynthOscillatorWaveform waveForm;
+    SynthWaveform waveform;
     double phase;            // [0.0, 1.0]
     double phaseDelta;        // cycles per sample (fraction)
 
 public:
-    SynthOscillator();
+    SynthOscillator() : phase(0), phaseDelta(0) {}
     
-    void setWaveform(SynthOscillatorWaveform wf) { waveForm = wf; }
-    void setFrequency(double cyclesPerSample);
+    void setWaveform(SynthWaveform wf) { waveform = wf; }
+    void setFrequency(double cyclesPerSample) { phaseDelta = cyclesPerSample; }
 
     float getSample ();
 };
