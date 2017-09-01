@@ -27,6 +27,7 @@ GuiOscTab::GuiOscTab (SynthSound* pSynthSound)
     initLabel(semiLabel2);
     initLabel(detuneLabel2);
     initLabel(oscBlendLabel);
+    oscBlendLabel.setJustificationType(Justification::centred);
 
     auto initCombo = [this](ComboBox& combo)
     {
