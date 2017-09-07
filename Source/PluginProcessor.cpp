@@ -15,10 +15,6 @@ VanillaJuceAudioProcessor::VanillaJuceAudioProcessor()
     synth.addSound(pSound);
 }
 
-VanillaJuceAudioProcessor::~VanillaJuceAudioProcessor()
-{
-}
-
 void VanillaJuceAudioProcessor::initializePrograms()
 {
     for (int i = 0; i < kNumberOfPrograms; i++)

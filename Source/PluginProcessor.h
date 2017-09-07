@@ -10,7 +10,6 @@ class VanillaJuceAudioProcessor
 {
 public:
     VanillaJuceAudioProcessor();
-    virtual ~VanillaJuceAudioProcessor();
 
     void prepareToPlay (double sampleRate, int samplesPerBlock) override;
     void releaseResources() override;
