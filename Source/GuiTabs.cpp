@@ -1,17 +1,16 @@
 #include "GuiTabs.h"
 
-GuiTabs::GuiTabs (SynthSound* pSynthSound)
+GuiTabs::GuiTabs (SynthSound* pSynthSound, float scale)
+    : mainTab(pSynthSound, scale)
+    , oscTab(pSynthSound, scale)
+    , ampEgTab(pSynthSound, scale)
 {
     addAndMakeVisible (tabbedComponent = new TabbedComponent (TabbedButtonBar::TabsAtTop));
     tabbedComponent->setTabBarDepth (32);
-    tabbedComponent->addTab(TRANS("Main"), Colours::lightgrey, pMainTab = new GuiMainTab(pSynthSound), true);
-    tabbedComponent->addTab(TRANS("Osc"), Colours::lightgrey, pOscTab = new GuiOscTab(pSynthSound), true);
-    tabbedComponent->addTab(TRANS("AmpEG"), Colours::lightgrey, pAmpEgTab = new GuiEgTab(pSynthSound), true);
+    tabbedComponent->addTab(TRANS("Main"), Colours::lightgrey, &mainTab, false);
+    tabbedComponent->addTab(TRANS("Osc"), Colours::lightgrey, &oscTab, false);
+    tabbedComponent->addTab(TRANS("AmpEG"), Colours::lightgrey, &ampEgTab, false);
     tabbedComponent->setCurrentTabIndex(0);
-}
-
-GuiTabs::~GuiTabs()
-{
 }
 
 //==============================================================================
@@ -27,7 +26,7 @@ void GuiTabs::resized()
 
 void GuiTabs::notify()
 {
-    pMainTab->notify();
-    pOscTab->notify();
-    pAmpEgTab->notify();
+    mainTab.notify();
+    oscTab.notify();
+    ampEgTab.notify();
 }

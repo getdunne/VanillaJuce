@@ -7,8 +7,7 @@ class GuiOscTab : public Component,
                   public SliderListener
 {
 public:
-    GuiOscTab (SynthSound* pSynthSound);
-    ~GuiOscTab();
+    GuiOscTab (SynthSound* pSynthSound, float scale);
 
     void paint (Graphics& g) override;
     void resized() override;
@@ -19,6 +18,7 @@ public:
 
 private:
     SynthSound* pSound;
+    float scaleFactor;
 
     Label wfLabel1, semiLabel1, detuneLabel1;
     ComboBox waveformCB1;

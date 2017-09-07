@@ -1,13 +1,15 @@
 #include "PluginProcessor.h"
 #include "PluginEditor.h"
 
-VanillaJuceAudioProcessorEditor::VanillaJuceAudioProcessorEditor (VanillaJuceAudioProcessor& p)
+VanillaJuceAudioProcessorEditor::VanillaJuceAudioProcessorEditor (VanillaJuceAudioProcessor& p, float scale)
     : AudioProcessorEditor (&p)
     , processor (p)
-    , guiTabs(p.getSound())
+    , lookAndFeel(scale)
+    , guiTabs(p.getSound(), scale)
 {
-    setSize (600, 400);
+    setSize (int(scale * 600), int(scale * 400));
     addAndMakeVisible(&guiTabs);
+    guiTabs.setLookAndFeel(&lookAndFeel);
     p.addChangeListener(this);
 }
 

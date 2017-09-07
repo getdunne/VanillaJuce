@@ -6,7 +6,7 @@ class GuiEgTab  : public Component,
                   public SliderListener
 {
 public:
-    GuiEgTab (SynthSound* pSynthSound);
+    GuiEgTab (SynthSound* pSynthSound, float scale);
 
     void paint (Graphics& g) override;
     void resized() override;
@@ -16,6 +16,7 @@ public:
 
 private:
     SynthSound* pSound;
+    float scaleFactor;
 
     Label attackLabel, decayLabel, sustainLabel, releaseLabel;
     Slider attackSlider, decaySlider, sustainSlider, releaseSlider;

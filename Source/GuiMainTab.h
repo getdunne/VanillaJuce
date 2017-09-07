@@ -5,8 +5,7 @@
 class GuiMainTab : public Component, public SliderListener
 {
 public:
-    GuiMainTab (SynthSound* pSynthSound);
-    ~GuiMainTab();
+    GuiMainTab (SynthSound* pSynthSound, float scale);
 
     void paint (Graphics& g) override;
     void resized() override;
@@ -16,6 +15,7 @@ public:
 
 private:
     SynthSound* pSound;
+    float scaleFactor;
 
     Label masterLevelLabel, pbUpLabel, pbDownLabel;
     Slider masterLevelSlider, pbUpSlider, pbDownSlider;

@@ -8,8 +8,7 @@
 class GuiTabs  : public Component
 {
 public:
-    GuiTabs (SynthSound* pSynthSound);
-    ~GuiTabs();
+    GuiTabs (SynthSound* pSynthSound, float scale);
 
     void paint (Graphics& g) override;
     void resized() override;
@@ -18,9 +17,9 @@ public:
 
 private:
     ScopedPointer<TabbedComponent> tabbedComponent;
-    GuiMainTab* pMainTab;
-    GuiOscTab* pOscTab;
-    GuiEgTab* pAmpEgTab;
+    GuiMainTab mainTab;
+    GuiOscTab oscTab;
+    GuiEgTab ampEgTab;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (GuiTabs)
 };

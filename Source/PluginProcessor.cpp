@@ -106,7 +106,7 @@ bool VanillaJuceAudioProcessor::hasEditor() const
 
 AudioProcessorEditor* VanillaJuceAudioProcessor::createEditor()
 {
-    return new VanillaJuceAudioProcessorEditor(*this);
+    return new VanillaJuceAudioProcessorEditor(*this);// , 0.5f);
 }
 
 void VanillaJuceAudioProcessor::getStateInformation (MemoryBlock& destData)

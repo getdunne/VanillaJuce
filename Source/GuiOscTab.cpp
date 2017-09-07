@@ -1,7 +1,8 @@
 #include "GuiOscTab.h"
 
-GuiOscTab::GuiOscTab (SynthSound* pSynthSound)
+GuiOscTab::GuiOscTab (SynthSound* pSynthSound, float scale)
     : pSound(pSynthSound)
+    , scaleFactor(scale)
     , wfLabel1("waveform label1", TRANS("Osc1 Waveform"))
     , semiLabel1("semitone offset label1", TRANS("Pitch (semitones)"))
     , detuneLabel1("detune label1", TRANS("Detune (cents)"))
@@ -13,7 +14,6 @@ GuiOscTab::GuiOscTab (SynthSound* pSynthSound)
     auto initLabel = [this](Label& label)
     {
         addAndMakeVisible(label);
-        label.setFont(Font(15.00f, Font::plain).withTypefaceStyle("Regular"));
         label.setJustificationType(Justification::centredRight);
         label.setEditable(false, false, false);
         label.setColour(TextEditor::textColourId, Colours::black);
@@ -50,7 +50,7 @@ GuiOscTab::GuiOscTab (SynthSound* pSynthSound)
     {
         addAndMakeVisible(slider);
         slider.setSliderStyle(Slider::LinearHorizontal);
-        slider.setTextBoxStyle(Slider::TextBoxRight, false, 80, 20);
+        slider.setTextBoxStyle(Slider::TextBoxRight, false, int(scaleFactor * 80), int(scaleFactor * 20));
         slider.addListener(this);
     };
 
@@ -62,17 +62,12 @@ GuiOscTab::GuiOscTab (SynthSound* pSynthSound)
     addAndMakeVisible(oscBlendSlider);
     oscBlendSlider.setRange(0, 100, 0);
     oscBlendSlider.setSliderStyle(Slider::LinearVertical);
-    oscBlendSlider.setTextBoxStyle(Slider::TextBoxAbove, false, 80, 20);
+    oscBlendSlider.setTextBoxStyle(Slider::TextBoxAbove, false, int(scaleFactor * 80), int(scaleFactor * 20));
     oscBlendSlider.addListener(this);
 
     notify();
 }
 
-GuiOscTab::~GuiOscTab()
-{
-}
-
-//==============================================================================
 void GuiOscTab::paint (Graphics& g)
 {
     g.fillAll (Colour (0xff323e44));
@@ -80,18 +75,19 @@ void GuiOscTab::paint (Graphics& g)
 
 void GuiOscTab::resized()
 {
-    const int labelLeft = 16;
-    const int controlLeft = 144;
-    const int labelWidth = 120;
-    const int cboxWidth = 150;
-    const int sliderWidth = 344;
-    const int controlHeight = 24;
-    const int gapHeight = 8;
-    const int blendSliderLeft = 510;
-    const int blendSliderWidth = 60;
-    const int blendSliderHeight = 240;
+    const int startTop = int(scaleFactor * 20);
+    const int labelLeft = int(scaleFactor * 16);
+    const int controlLeft = int(scaleFactor * 144);
+    const int labelWidth = int(scaleFactor * 120);
+    const int cboxWidth = int(scaleFactor * 150);
+    const int sliderWidth = int(scaleFactor * 344);
+    const int controlHeight = int(scaleFactor * 24);
+    const int gapHeight = int(scaleFactor * 8);
+    const int blendSliderLeft = int(scaleFactor * 510);
+    const int blendSliderWidth = int(scaleFactor * 60);
+    const int blendSliderHeight = int(scaleFactor * 240);
 
-    int top = 20;
+    int top = startTop;
     wfLabel1.setBounds (labelLeft, top, labelWidth, controlHeight);
     waveformCB1.setBounds (controlLeft, top, cboxWidth, controlHeight);
     top += controlHeight + gapHeight;
@@ -111,7 +107,7 @@ void GuiOscTab::resized()
     detuneLabel2.setBounds(labelLeft, top, labelWidth, controlHeight);
     detuneSlider2.setBounds(controlLeft, top, sliderWidth, controlHeight);
 
-    top = 20;
+    top = startTop;
     oscBlendSlider.setBounds(blendSliderLeft, top, blendSliderWidth, blendSliderHeight);
     top += blendSliderHeight + gapHeight;
     oscBlendLabel.setBounds(blendSliderLeft + blendSliderWidth/2 - labelWidth/2, top, labelWidth, controlHeight);
