@@ -23,7 +23,7 @@ void VanillaJuceAudioProcessorEditor::paint (Graphics& g)
 
 void VanillaJuceAudioProcessorEditor::resized()
 {
-    guiTabs.setBounds(0, 0, proportionOfWidth(1.0000f), proportionOfHeight(1.0000f));
+    guiTabs.setBounds(0, 0, getWidth(), getHeight());
 }
 
 void VanillaJuceAudioProcessorEditor::changeListenerCallback(ChangeBroadcaster* source)

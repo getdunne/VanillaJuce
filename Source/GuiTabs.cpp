@@ -22,7 +22,7 @@ void GuiTabs::paint (Graphics& g)
 
 void GuiTabs::resized()
 {
-    tabbedComponent->setBounds (0, 0, proportionOfWidth (1.0000f), proportionOfHeight (1.0000f));
+    tabbedComponent->setBounds (0, 0, getWidth(), getWidth());
 }
 
 void GuiTabs::notify()
