@@ -11,7 +11,7 @@
               pluginWantsMidiIn="1" pluginProducesMidiOut="0" pluginIsMidiEffectPlugin="0"
               pluginEditorRequiresKeys="0" pluginAUExportPrefix="VanillaJuceAU"
               pluginRTASCategory="" aaxIdentifier="com.yourcompany.VanillaJuce"
-              pluginAAXCategory="AAX_ePlugInCategory_Dynamics" jucerVersion="5.1.1">
+              pluginAAXCategory="AAX_ePlugInCategory_Dynamics" jucerVersion="5.1.2">
   <MAINGROUP id="yt1M8n" name="VanillaJuce">
     <GROUP id="{5872D22E-CBD0-ED29-66AC-7E15BC05C5FB}" name="Source">
       <GROUP id="{9AD1E5A5-ABFC-869D-143A-C29114E819DA}" name="_Plugin">
