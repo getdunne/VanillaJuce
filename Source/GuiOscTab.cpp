@@ -27,7 +27,7 @@ GuiOscTab::GuiOscTab (SynthSound* pSynthSound)
     initLabel(semiLabel2);
     initLabel(detuneLabel2);
     initLabel(oscBlendLabel);
-    oscBlendLabel.setJustificationType(Justification::centred);
+    oscBlendLabel.setJustificationType(Justification::centredLeft);
 
     auto initCombo = [this](ComboBox& combo)
     {
@@ -60,9 +60,9 @@ GuiOscTab::GuiOscTab (SynthSound* pSynthSound)
     initSlider(detuneSlider2); detuneSlider2.setRange(-50, 50, 0);
 
     addAndMakeVisible(oscBlendSlider);
-    oscBlendSlider.setRange(0, 100, 0);
+    oscBlendSlider.setRange(0, 100, 1);
     oscBlendSlider.setSliderStyle(Slider::LinearVertical);
-    oscBlendSlider.setTextBoxStyle(Slider::TextBoxAbove, false, 80, 20);
+    oscBlendSlider.setTextBoxStyle(Slider::TextBoxRight, false, 40, 20);
     oscBlendSlider.addListener(this);
 
     notify();
@@ -87,9 +87,9 @@ void GuiOscTab::resized()
     const int sliderWidth = 344;
     const int controlHeight = 24;
     const int gapHeight = 8;
-    const int blendSliderLeft = 510;
-    const int blendSliderWidth = 60;
-    const int blendSliderHeight = 240;
+    const int blendSliderLeft = 500;
+    const int blendSliderWidth = 80;
+    const int blendSliderHeight = 200;
 
     int top = 20;
     wfLabel1.setBounds (labelLeft, top, labelWidth, controlHeight);
@@ -112,9 +112,9 @@ void GuiOscTab::resized()
     detuneSlider2.setBounds(controlLeft, top, sliderWidth, controlHeight);
 
     top = 20;
+    oscBlendLabel.setBounds(blendSliderLeft, top, labelWidth, controlHeight);
+    top += controlHeight;
     oscBlendSlider.setBounds(blendSliderLeft, top, blendSliderWidth, blendSliderHeight);
-    top += blendSliderHeight + gapHeight;
-    oscBlendLabel.setBounds(blendSliderLeft + blendSliderWidth/2 - labelWidth/2, top, labelWidth, controlHeight);
 }
 
 void GuiOscTab::comboBoxChanged (ComboBox* comboBoxThatHasChanged)

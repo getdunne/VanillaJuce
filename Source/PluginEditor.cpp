@@ -6,7 +6,7 @@ VanillaJuceAudioProcessorEditor::VanillaJuceAudioProcessorEditor (VanillaJuceAud
     , processor (p)
     , guiTabs(p.getSound())
 {
-    setSize (600, 400);
+    setSize (600, 300);
     addAndMakeVisible(&guiTabs);
     p.addChangeListener(this);
 }
