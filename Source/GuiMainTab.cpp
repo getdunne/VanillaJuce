@@ -1,9 +1,8 @@
 #include "GuiMainTab.h"
 
 //==============================================================================
-GuiMainTab::GuiMainTab (SynthSound* pSynthSound, float scale)
+GuiMainTab::GuiMainTab (SynthSound* pSynthSound)
     : pSound(pSynthSound)
-    , scaleFactor(scale)
     , masterLevelLabel("master level", TRANS("Master Volume"))
     , pbUpLabel("PB up", TRANS("P.Bend up (semi)"))
     , pbDownLabel("PB down", TRANS("P.Bend down (semi)"))
@@ -11,6 +10,7 @@ GuiMainTab::GuiMainTab (SynthSound* pSynthSound, float scale)
     auto initLabel = [this](Label& label)
     {
         addAndMakeVisible(label);
+        label.setFont(Font(15.00f, Font::plain).withTypefaceStyle("Regular"));
         label.setJustificationType(Justification::centredRight);
         label.setEditable(false, false, false);
         label.setColour(TextEditor::textColourId, Colours::black);
@@ -25,7 +25,7 @@ GuiMainTab::GuiMainTab (SynthSound* pSynthSound, float scale)
     {
         addAndMakeVisible(slider);
         slider.setSliderStyle(Slider::LinearHorizontal);
-        slider.setTextBoxStyle(Slider::TextBoxRight, false, int(scaleFactor * 80), int(scaleFactor * 20));
+        slider.setTextBoxStyle(Slider::TextBoxRight, false, 80, 20);
         slider.addListener(this);
     };
 
@@ -36,6 +36,11 @@ GuiMainTab::GuiMainTab (SynthSound* pSynthSound, float scale)
     notify();
 }
 
+GuiMainTab::~GuiMainTab()
+{
+}
+
+//==============================================================================
 void GuiMainTab::paint (Graphics& g)
 {
     g.fillAll (Colour (0xff323e44));
@@ -43,15 +48,14 @@ void GuiMainTab::paint (Graphics& g)
 
 void GuiMainTab::resized()
 {
-    const int startTop = int(scaleFactor * 20);
-    const int labelLeft = int(scaleFactor * 16);
-    const int controlLeft = int(scaleFactor * 144);
-    const int labelWidth = int(scaleFactor * 120);
-    const int sliderWidth = int(scaleFactor * 344);
-    const int controlHeight = int(scaleFactor * 24);
-    const int gapHeight = int(scaleFactor * 8);
+    const int labelLeft = 16;
+    const int controlLeft = 144;
+    const int labelWidth = 120;
+    const int sliderWidth = 420;
+    const int controlHeight = 24;
+    const int gapHeight = 8;
 
-    int top = startTop;
+    int top = 20;
     masterLevelLabel.setBounds(labelLeft, top, labelWidth, controlHeight);
     masterLevelSlider.setBounds(controlLeft, top, sliderWidth, controlHeight);
     top += controlHeight + 5 * gapHeight;

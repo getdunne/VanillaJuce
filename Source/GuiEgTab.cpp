@@ -1,8 +1,7 @@
 #include "GuiEgTab.h"
 
-GuiEgTab::GuiEgTab (SynthSound* pSynthSound, float scale)
+GuiEgTab::GuiEgTab (SynthSound* pSynthSound)
     : pSound(pSynthSound)
-    , scaleFactor(scale)
     , attackLabel("attack", TRANS("Attack Time (sec)"))
     , decayLabel("decay", TRANS("Decay Time (sec)"))
     , sustainLabel("sustain", TRANS("Sustain Level (%)"))
@@ -11,6 +10,7 @@ GuiEgTab::GuiEgTab (SynthSound* pSynthSound, float scale)
     auto initLabel = [this](Label& label)
     {
         addAndMakeVisible(label);
+        label.setFont (Font (15.00f, Font::plain).withTypefaceStyle ("Regular"));
         label.setJustificationType (Justification::centredRight);
         label.setEditable (false, false, false);
         label.setColour (TextEditor::textColourId, Colours::black);
@@ -26,7 +26,7 @@ GuiEgTab::GuiEgTab (SynthSound* pSynthSound, float scale)
     {
         addAndMakeVisible(slider);
         slider.setSliderStyle (Slider::LinearHorizontal);
-        slider.setTextBoxStyle (Slider::TextBoxRight, false, int(scaleFactor * 80), int(scaleFactor * 20));
+        slider.setTextBoxStyle (Slider::TextBoxRight, false, 80, 20);
         slider.addListener (this);
     };
 
@@ -45,15 +45,14 @@ void GuiEgTab::paint (Graphics& g)
 
 void GuiEgTab::resized()
 {
-    const int startTop = int(scaleFactor * 20);
-    const int labelLeft = int(scaleFactor * 16);
-    const int controlLeft = int(scaleFactor * 144);
-    const int labelWidth = int(scaleFactor * 120);
-    const int sliderWidth = int(scaleFactor * 344);
-    const int controlHeight = int(scaleFactor * 24);
-    const int gapHeight = int(scaleFactor * 8);
+    const int labelLeft = 16;
+    const int controlLeft = 144;
+    const int labelWidth = 120;
+    const int sliderWidth = 420;
+    const int controlHeight = 24;
+    const int gapHeight = 8;
 
-    int top = startTop;
+    int top = 20;
     attackLabel.setBounds (labelLeft, top, labelWidth, controlHeight);
     attackSlider.setBounds (controlLeft, top, sliderWidth, controlHeight);
     top += controlHeight + gapHeight;
