@@ -9,6 +9,7 @@ class GuiTabs  : public Component
 {
 public:
     GuiTabs (SynthSound* pSynthSound, float scale);
+    void setScaleFactor(float scale);
 
     void paint (Graphics& g) override;
     void resized() override;

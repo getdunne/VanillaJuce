@@ -13,7 +13,13 @@ GuiTabs::GuiTabs (SynthSound* pSynthSound, float scale)
     tabbedComponent->setCurrentTabIndex(0);
 }
 
-//==============================================================================
+void GuiTabs::setScaleFactor(float scale)
+{
+    mainTab.setScaleFactor(scale);
+    oscTab.setScaleFactor(scale);
+    ampEgTab.setScaleFactor(scale);
+}
+
 void GuiTabs::paint (Graphics& g)
 {
     g.fillAll (Colour (0xff323e44));
