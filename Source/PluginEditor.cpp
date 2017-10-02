@@ -7,10 +7,9 @@ VanillaJuceAudioProcessorEditor::VanillaJuceAudioProcessorEditor (VanillaJuceAud
     , lookAndFeel(scale)
     , guiTabs(p.getSound(), scale)
 {
-    guiTabs.setLookAndFeel(&lookAndFeel);
-    setSize (int(scale * defaultWidth), int(scale * defaultHeight));
-    setResizeLimits(defaultWidth, defaultHeight, 3 * defaultWidth, 3 * defaultHeight);
+    setSize (int(scale * 600), int(scale * 400));
     addAndMakeVisible(&guiTabs);
+    guiTabs.setLookAndFeel(&lookAndFeel);
     p.addChangeListener(this);
 }
 
@@ -26,16 +25,7 @@ void VanillaJuceAudioProcessorEditor::paint (Graphics& g)
 
 void VanillaJuceAudioProcessorEditor::resized()
 {
-    // determine new scale factor based on width
-    int width = getWidth();
-    float scaleFactor = (float)width / defaultWidth;
-    lookAndFeel.setScaleFactor(scaleFactor);
-    guiTabs.setScaleFactor(scaleFactor);
-
-    // adjust height in appropriate proportion to new width
-    //int height = (int)(0.5f + scaleFactor * defaultHeightWidthRatio() * width);
-    //setSize(width, height);
-    guiTabs.setBounds(0, 0, getWidth(), getHeight());
+    guiTabs.setBounds(0, 0, proportionOfWidth(1.0000f), proportionOfHeight(1.0000f));
 }
 
 void VanillaJuceAudioProcessorEditor::changeListenerCallback(ChangeBroadcaster* source)

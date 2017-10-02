@@ -11,12 +11,15 @@ private:
 public:
     MyLookAndFeel(float scale) : scaleFactor(scale) {}
 
-    void setScaleFactor(float scale) { scaleFactor = scale; }
-
     virtual Font getLabelFont(Label&) override
     {
         return Font(scaleFactor * 15.0f, Font::plain).withTypefaceStyle("Regular");
     }
+
+    //virtual Font getComboBoxFont(ComboBox&) override
+    //{
+    //    return Font(scaleFactor * 15.0f, Font::plain).withTypefaceStyle("Regular");
+    //}
 };
 
 class VanillaJuceAudioProcessorEditor
@@ -36,10 +39,6 @@ private:
     VanillaJuceAudioProcessor& processor;
     MyLookAndFeel lookAndFeel;
     GuiTabs guiTabs;
-
-    const int defaultWidth = 600;
-    const int defaultHeight = 340;
-    const float defaultHeightWidthRatio() { return (float)defaultHeight / defaultWidth; }
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (VanillaJuceAudioProcessorEditor)
 };

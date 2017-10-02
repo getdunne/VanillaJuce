@@ -8,7 +8,6 @@ class GuiOscTab : public Component,
 {
 public:
     GuiOscTab (SynthSound* pSynthSound, float scale);
-    void setScaleFactor(float scale) { scaleFactor = scale; }
 
     void paint (Graphics& g) override;
     void resized() override;
