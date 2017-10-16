@@ -68,11 +68,11 @@ void GuiEgTab::resized()
 
 void GuiEgTab::sliderValueChanged (Slider* sliderThatWasMoved)
 {
-    double value = sliderThatWasMoved->getValue();
+    float value = (float)(sliderThatWasMoved->getValue());
     SynthParameters* pParams = pSound->pParams;
     if (sliderThatWasMoved == &attackSlider) pParams->ampEgAttackTimeSeconds = value;
     else if (sliderThatWasMoved == &decaySlider) pParams->ampEgDecayTimeSeconds = value;
-    else if (sliderThatWasMoved == &sustainSlider) pParams->ampEgSustainLevel = 0.01 * value;
+    else if (sliderThatWasMoved == &sustainSlider) pParams->ampEgSustainLevel = 0.01f * value;
     else if (sliderThatWasMoved == &releaseSlider) pParams->ampEgReleaseTimeSeconds = value;
     pSound->parameterChanged();
 }
@@ -82,6 +82,6 @@ void GuiEgTab::notify()
     SynthParameters* pParams = pSound->pParams;
     attackSlider.setValue(pParams->ampEgAttackTimeSeconds);
     decaySlider.setValue(pParams->ampEgDecayTimeSeconds);
-    sustainSlider.setValue(100.0 * pParams->ampEgSustainLevel);
+    sustainSlider.setValue(100.0f * pParams->ampEgSustainLevel);
     releaseSlider.setValue(pParams->ampEgReleaseTimeSeconds);
 }

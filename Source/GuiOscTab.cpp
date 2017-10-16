@@ -133,7 +133,7 @@ void GuiOscTab::comboBoxChanged (ComboBox* comboBoxThatHasChanged)
 
 void GuiOscTab::sliderValueChanged (Slider* sliderThatWasMoved)
 {
-    double value = sliderThatWasMoved->getValue();
+    float value = (float)(sliderThatWasMoved->getValue());
     SynthParameters* pParams = pSound->pParams;
     if (sliderThatWasMoved == &semiSlider1)
     {
@@ -153,7 +153,7 @@ void GuiOscTab::sliderValueChanged (Slider* sliderThatWasMoved)
     }
     else if (sliderThatWasMoved == &oscBlendSlider)
     {
-        pParams->oscBlend = 0.01 * value;
+        pParams->oscBlend = 0.01f * value;
     }
     pSound->parameterChanged();
 }
