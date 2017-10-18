@@ -3,20 +3,20 @@
 void SynthParameters::setDefaultValues()
 {
     programName = "Default";
-    masterLevel = 0.15;
-    oscBlend= 0.5;
+    masterLevel = 0.15f;
+    oscBlend= 0.5f;
     pitchBendUpSemitones = 2;
     pitchBendDownSemitones = 2;
     osc1Waveform.setToDefault();
     osc1PitchOffsetSemitones = 0;
-    osc1DetuneOffsetCents = -10.0;
+    osc1DetuneOffsetCents = -10.0f;
     osc2Waveform.setToDefault();
     osc2PitchOffsetSemitones = 0;
-    osc2DetuneOffsetCents = +10.0;
-    ampEgAttackTimeSeconds = 0.1;
-    ampEgDecayTimeSeconds = 0.1;
-    ampEgSustainLevel = 0.8;
-    ampEgReleaseTimeSeconds = 0.5;
+    osc2DetuneOffsetCents = +10.0f;
+    ampEgAttackTimeSeconds = 0.1f;
+    ampEgDecayTimeSeconds = 0.1f;
+    ampEgSustainLevel = 0.8f;
+    ampEgReleaseTimeSeconds = 0.5f;
 }
 
 XmlElement* SynthParameters::getXml()
@@ -50,21 +50,21 @@ void SynthParameters::putXml(XmlElement* xml)
 {
     programName = xml->getStringAttribute("name");
 
-    masterLevel = xml->getDoubleAttribute("masterLevel");
-    oscBlend = xml->getDoubleAttribute("oscBlend");
+    masterLevel = (float)(xml->getDoubleAttribute("masterLevel"));
+    oscBlend = (float)(xml->getDoubleAttribute("oscBlend"));
     pitchBendUpSemitones = xml->getIntAttribute("pitchBendUpSemitones");
     pitchBendDownSemitones = xml->getIntAttribute("pitchBendDownSemitones");
 
     osc1Waveform.setFromName(xml->getStringAttribute("osc1Waveform"));
     osc1PitchOffsetSemitones = xml->getIntAttribute("osc1PitchOffsetSemitones");
-    osc1DetuneOffsetCents = xml->getDoubleAttribute("osc1DetuneOffsetCents");
+    osc1DetuneOffsetCents = (float)(xml->getDoubleAttribute("osc1DetuneOffsetCents"));
 
     osc2Waveform.setFromName(xml->getStringAttribute("osc2Waveform"));
     osc2PitchOffsetSemitones = xml->getIntAttribute("osc2PitchOffsetSemitones");
-    osc2DetuneOffsetCents = xml->getDoubleAttribute("osc2DetuneOffsetCents");
+    osc2DetuneOffsetCents = (float)(xml->getDoubleAttribute("osc2DetuneOffsetCents"));
 
-    ampEgAttackTimeSeconds = xml->getDoubleAttribute("ampEgAttackTimeSeconds");
-    ampEgDecayTimeSeconds = xml->getDoubleAttribute("ampEgDecayTimeSeconds");
-    ampEgSustainLevel = xml->getDoubleAttribute("ampEgSustainLevel");
-    ampEgReleaseTimeSeconds = xml->getDoubleAttribute("ampEgReleaseTimeSeconds");
+    ampEgAttackTimeSeconds = (float)(xml->getDoubleAttribute("ampEgAttackTimeSeconds"));
+    ampEgDecayTimeSeconds = (float)(xml->getDoubleAttribute("ampEgDecayTimeSeconds"));
+    ampEgSustainLevel = (float)(xml->getDoubleAttribute("ampEgSustainLevel"));
+    ampEgReleaseTimeSeconds = (float)(xml->getDoubleAttribute("ampEgReleaseTimeSeconds"));
 }

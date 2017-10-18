@@ -8,26 +8,26 @@ public:
     String programName;
 
     // main
-    double masterLevel;
-    double oscBlend;                        // [0.0, 1.0] relative osc1 level
+    float masterLevel;
+    float oscBlend;                        // [0.0, 1.0] relative osc1 level
     int pitchBendUpSemitones;
     int pitchBendDownSemitones;
     
     // osc 1
     SynthWaveform osc1Waveform;
     int osc1PitchOffsetSemitones;
-    double osc1DetuneOffsetCents;
+    float osc1DetuneOffsetCents;
     
     // osc 2
     SynthWaveform osc2Waveform;
     int osc2PitchOffsetSemitones;
-    double osc2DetuneOffsetCents;
+    float osc2DetuneOffsetCents;
     
     // amp EG
-    double ampEgAttackTimeSeconds;
-    double ampEgDecayTimeSeconds;
-    double ampEgSustainLevel;               // [0.0, 1.0]
-    double ampEgReleaseTimeSeconds;
+    float ampEgAttackTimeSeconds;
+    float ampEgDecayTimeSeconds;
+    float ampEgSustainLevel;               // [0.0, 1.0]
+    float ampEgReleaseTimeSeconds;
 
 public:
     // Set default values

@@ -68,11 +68,11 @@ void GuiMainTab::resized()
 
 void GuiMainTab::sliderValueChanged (Slider* sliderThatWasMoved)
 {
-    double value = sliderThatWasMoved->getValue();
+    float value = (float)(sliderThatWasMoved->getValue());
     SynthParameters* pParams = pSound->pParams;
     if (sliderThatWasMoved == &masterLevelSlider)
     {
-        pParams->masterLevel = 0.1 * value;
+        pParams->masterLevel = 0.1f * value;
     }
     else if (sliderThatWasMoved == &pbUpSlider)
     {
