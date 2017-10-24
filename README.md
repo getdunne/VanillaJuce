@@ -10,9 +10,9 @@ When I say **VanillaJuce** is "complete", I don't mean that this is a particular
 - Dynamic editing of sound parameters is supported
 - Saving and recalling sound programs (via plugin host) is supported
 
-One important capability **VanillaJuce** doesn't yet support is *parameter automation*. I am in the process of prototyping approaches (see https://github.com/getdunne/juce-AudioParameterTest) and will be adding this soon.
+The basic **VanillaJuce** doesn't support *parameter automation*. Have a look at the *params-old* branch to see how this can be added using the (deprecated) *AudioParameter* classes. (I'm working on a second implementation using the newer *AudioProcessorValueTreeState* class.)
 
 You can find *lots of detailed documentation* about **VanillaJuce** at http://getdunne.net/wiki/doku.php?id=vanillajuce.
 
 Shane Dunne,
-August, 2017
+October, 2017
