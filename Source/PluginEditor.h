@@ -14,7 +14,7 @@ public:
     void paint (Graphics&) override;
     void resized() override;
 
-    virtual void changeListenerCallback(ChangeBroadcaster* source);
+    void changeListenerCallback(ChangeBroadcaster* source) override;
 
 private:
     VanillaJuceAudioProcessor& processor;

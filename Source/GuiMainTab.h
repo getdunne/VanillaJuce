@@ -2,7 +2,7 @@
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "SynthSound.h"
 
-class GuiMainTab : public Component, public SliderListener
+class GuiMainTab : public Component, public Slider::Listener
 {
 public:
     GuiMainTab (SynthSound* pSynthSound);

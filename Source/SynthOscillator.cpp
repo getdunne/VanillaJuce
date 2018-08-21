@@ -18,6 +18,7 @@ float SynthOscillator::getSample()
         break;
     case SynthWaveform::kSawtooth:
         sample = (float)(2.0 * phase - 1.0);
+    default:
         break;
     }
 

@@ -2,8 +2,8 @@
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "SynthSound.h"
 
-class GuiEgTab  : public Component,
-                  public SliderListener
+class GuiEgTab  :   public Component,
+                    public Slider::Listener
 {
 public:
     GuiEgTab (SynthSound* pSynthSound);

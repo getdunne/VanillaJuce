@@ -2,9 +2,9 @@
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "SynthSound.h"
 
-class GuiOscTab : public Component,
-                  public ComboBoxListener,
-                  public SliderListener
+class GuiOscTab :   public Component,
+                    public ComboBox::Listener,
+                    public Slider::Listener
 {
 public:
     GuiOscTab (SynthSound* pSynthSound);
