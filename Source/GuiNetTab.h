@@ -24,8 +24,10 @@ public:
 
 private:
     DSP_Client& dspClient;
-    Label infoLabel;
+    Label addressLabel, portLabel, infoLabel;
+    TextEditor addressEditor, portEditor;
     TextButton connectButton;
+    Label message;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (GuiNetTab)
 };
