@@ -92,7 +92,10 @@ void VanillaJuceAudioProcessor::releaseResources()
 
 void VanillaJuceAudioProcessor::processBlock (AudioSampleBuffer& buffer, MidiBuffer& midiMessages)
 {
-    synth.renderNextBlock(buffer, midiMessages, 0, buffer.getNumSamples());
+    if (dspClient.isConnected())
+        dspClient.processBlock(buffer, midiMessages);
+    else
+        synth.renderNextBlock(buffer, midiMessages, 0, buffer.getNumSamples());
 }
 
 bool VanillaJuceAudioProcessor::hasEditor() const

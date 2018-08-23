@@ -4,7 +4,7 @@
 VanillaJuceAudioProcessorEditor::VanillaJuceAudioProcessorEditor (VanillaJuceAudioProcessor& p)
     : AudioProcessorEditor (&p)
     , processor (p)
-    , guiTabs(p.getSound())
+    , guiTabs(p.getSound(), p.getDspClient())
 {
     setSize (600, 300);
     addAndMakeVisible(&guiTabs);

@@ -4,11 +4,12 @@
 #include "GuiMainTab.h"
 #include "GuiOscTab.h"
 #include "GuiEgTab.h"
+#include "GuiNetTab.h"
 
 class GuiTabs  : public Component
 {
 public:
-    GuiTabs (SynthSound* pSynthSound);
+    GuiTabs (SynthSound* pSynthSound, DSP_Client& dspClient);
     ~GuiTabs();
 
     void paint (Graphics& g) override;
@@ -18,6 +19,7 @@ public:
 
 private:
     ScopedPointer<TabbedComponent> tabbedComponent;
+    GuiNetTab* pNetTab;
     GuiMainTab* pMainTab;
     GuiOscTab* pOscTab;
     GuiEgTab* pAmpEgTab;

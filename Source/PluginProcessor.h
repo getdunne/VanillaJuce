@@ -3,6 +3,7 @@
 #include "SynthParameters.h"
 #include "SynthSound.h"
 #include "Synth.h"
+#include "DSP_Client.h"
 
 class VanillaJuceAudioProcessor
     : public AudioProcessor
@@ -38,6 +39,7 @@ public:
 
 public:
     SynthSound* getSound() { return pSound; }
+    DSP_Client& getDspClient() { return dspClient; }
 
 private:
     static const int kNumberOfPrograms = 128;
@@ -47,6 +49,8 @@ private:
     SynthSound* pSound;
     SynthParameters programBank[kNumberOfPrograms];
     int currentProgram;
+
+    DSP_Client dspClient;
 
 private:
     void initializePrograms();
