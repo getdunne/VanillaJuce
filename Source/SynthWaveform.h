@@ -25,10 +25,12 @@ public:
     // deserialize: set index based on given name
     void setFromName(String wfName);
 
+#ifndef DSP_NET_ONLY
     // convenience funtions to allow selecting SynthWaveform from a juce::comboBox
     static void setupComboBox(ComboBox& cb);
     int fromComboBox(ComboBox& cb);
     void toComboBox(ComboBox& cb);
+#endif
 
 private:
     // waveform names: ordered list of string literals

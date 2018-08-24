@@ -24,6 +24,7 @@ String SynthWaveform::name()
     return wfNames[index];
 }
 
+#ifndef DSP_NET_ONLY
 void SynthWaveform::setupComboBox(ComboBox& cb)
 {
     for (int i = 0; i < kNumberOfWaveformTypes; i++)
@@ -40,3 +41,4 @@ void SynthWaveform::toComboBox(ComboBox& cb)
 {
     cb.setSelectedItemIndex((int)index);
 }
+#endif
