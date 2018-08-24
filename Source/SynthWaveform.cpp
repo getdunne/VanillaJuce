@@ -30,9 +30,10 @@ void SynthWaveform::setupComboBox(ComboBox& cb)
         cb.addItem(wfNames[i], i + 1);
 }
 
-void SynthWaveform::fromComboBox(ComboBox& cb)
+int SynthWaveform::fromComboBox(ComboBox& cb)
 {
     index = (WaveformTypeIndex)(cb.getSelectedItemIndex());
+    return int(index);
 }
 
 void SynthWaveform::toComboBox(ComboBox& cb)

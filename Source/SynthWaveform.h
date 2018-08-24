@@ -10,6 +10,7 @@ private:
     } index;
     
     friend class SynthOscillator;
+    friend class SynthParameters;
 
 public:
     // default constructor
@@ -26,9 +27,8 @@ public:
 
     // convenience funtions to allow selecting SynthWaveform from a juce::comboBox
     static void setupComboBox(ComboBox& cb);
-    void fromComboBox(ComboBox& cb);
+    int fromComboBox(ComboBox& cb);
     void toComboBox(ComboBox& cb);
-
 
 private:
     // waveform names: ordered list of string literals

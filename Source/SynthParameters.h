@@ -5,6 +5,24 @@
 class SynthParameters
 {
 public:
+    enum ParameterIndex {
+        kUpdateLock = 0,
+        kMasterLevel,
+        kOscBlend,
+        kPitchBendUpSemitones,
+        kPitchBendDownSemitones,
+        kOsc1WaveformIndex,
+        kOsc1PitchOffsetSemitones,
+        kOsc1DetuneOffsetCents,
+        kOsc2WaveformIndex,
+        kOsc2PitchOffsetSemitones,
+        kOsc2DetuneOffsetCents,
+        kAmpEgAttackTimeSeconds,
+        kAmpEgDecayTimeSeconds,
+        kAmpEgSustainLevel,
+        kAmpEgReleaseTimeSeconds
+    };
+
     String programName;
 
     // main
@@ -30,10 +48,19 @@ public:
     float ampEgReleaseTimeSeconds;
 
 public:
+    SynthParameters() : updateLocked(false) { setDefaultValues(); }
+
     // Set default values
     void setDefaultValues();
+
+    // Update a parameter based on its ParameterIndex. Returns true if the change
+    // should be propagated to the synthesis engine.
+    bool updateParam(ParameterIndex paramIndex, float newValue);
 
     // Save and Restore from XML
     XmlElement* getXml();
     void putXml(XmlElement* xml);
+
+protected:
+    bool updateLocked;
 };

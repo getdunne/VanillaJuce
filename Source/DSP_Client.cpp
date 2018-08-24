@@ -1,8 +1,5 @@
 #include "DSP_Client.h"
 
-// Testing
-//#define TESTMODE
-
 DSP_Client::DSP_Client()
     : disconnectPending(false)
 {
@@ -15,14 +12,10 @@ DSP_Client::~DSP_Client()
 
 bool DSP_Client::connect(String ipAddress, int portNumber)
 {
-#ifdef TESTMODE
-    return true;
-#else
     firstPacket = true;
     bool connected = socket.connect(ipAddress, portNumber);
     listeners.call([connected](Listener& l) { l.connectStatusChanged(connected); });
     return connected;
-#endif
 }
 
 void DSP_Client::disconnect()
@@ -30,39 +23,46 @@ void DSP_Client::disconnect()
     disconnectPending = true;
 }
 
+void DSP_Client::queueParameterUpdate(int paramIndex, float newValue)
+{
+    if (!socket.isConnected()) return;
+
+    DBG("Queueing param " + String(paramIndex) + " <= " + String(newValue));
+    ParamMessageStruct pms;
+    pms.effectIndex = 0;
+    pms.paramIndex = paramIndex;
+    pms.paramValue = newValue;
+
+    std::lock_guard<std::mutex> lock(paramQueueMutex);
+    paramUpdateQueue.push(pms);
+}
+
 bool DSP_Client::processBlock(AudioBuffer<float>& buffer, MidiBuffer& midiMessages)
 {
-#ifdef TESTMODE
-    int channels = buffer.getNumChannels();
-    int frameCount = buffer.getNumSamples();
-    float** wptrs = buffer.getArrayOfWritePointers();
-    memset(wptrs[0], 0, frameCount * DATASIZE);
-    memset(wptrs[1], 0, frameCount * DATASIZE);
-    wptrs[0][0] = 1.0f;
-    wptrs[1][0] = 1.0f;
-    return true;
-#else
     if (!socket.isConnected())
     {
+        // handle unexpected disconnect from server side
         listeners.call([](Listener& l) { l.connectStatusChanged(false); });
         return false;
     }
     else if (disconnectPending)
     {
-#ifndef TESTMODE
+        // complete pending disconnect from client side
         if (socket.isConnected()) socket.close();
         disconnectPending = false;
         listeners.call([](Listener& l) { l.connectStatusChanged(false); });
-#endif
+        while (!paramUpdateQueue.empty()) paramUpdateQueue.pop();
         return true;
     }
-    int frameCount = buffer.getNumSamples();
 
+    // prepare SendDataHeader
+    int frameCount = buffer.getNumSamples();
     SendDataHeader* pHdr = (SendDataHeader*)databuf;
     int byteCount = sizeof(SendDataHeader);
     memset(pHdr, 0, sizeof(SendDataHeader));
     pHdr->frameCount = (uint16_t)frameCount;
 
+    // prepare MIDI
     MIDIMessageInfoStruct* pMidi = (MIDIMessageInfoStruct*)(databuf + sizeof(SendDataHeader));
     MidiBuffer::Iterator it(midiMessages);
     MidiMessage midiMsg;
@@ -84,8 +84,20 @@ bool DSP_Client::processBlock(AudioBuffer<float>& buffer, MidiBuffer& midiMessag
     }
     midiMessages.clear(0, frameCount);
 
+    // prepare parameter changes
+    paramQueueMutex.lock();
+    ParamMessageStruct* pPms = (ParamMessageStruct*)(databuf + byteCount);
+    while (!paramUpdateQueue.empty())
+    {
+        *pPms++ = paramUpdateQueue.front();
+        paramUpdateQueue.pop();
+        byteCount += sizeof(ParamMessageStruct);
+        pHdr->paramCount++;
+    }
+    paramQueueMutex.unlock();
+
     /* sending effect data would look like this:
-    SampleDataHeader* sdhdr = (SampleDataHeader*)pMidi;
+    SampleDataHeader* sdhdr = (SampleDataHeader*)(databuf + byteCount);
     sdhdr->mainByteCount = frameCount * CHANNELS * DATASIZE;
     sdhdr->corrByteCount = 0xFFFF;
     byteCount += sizeof(SampleDataHeader);
@@ -122,5 +134,4 @@ bool DSP_Client::processBlock(AudioBuffer<float>& buffer, MidiBuffer& midiMessag
 comm_error:
     disconnect();
     return false;
-#endif
 }

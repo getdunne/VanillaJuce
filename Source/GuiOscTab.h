@@ -1,13 +1,14 @@
 #pragma once
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "SynthSound.h"
+#include "DSP_Client.h"
 
 class GuiOscTab :   public Component,
                     public ComboBox::Listener,
                     public Slider::Listener
 {
 public:
-    GuiOscTab (SynthSound* pSynthSound);
+    GuiOscTab (SynthSound* pSynthSound, DSP_Client& dspc);
     ~GuiOscTab();
 
     void paint (Graphics& g) override;
@@ -19,6 +20,7 @@ public:
 
 private:
     SynthSound* pSound;
+    DSP_Client& dspClient;
 
     Label wfLabel1, semiLabel1, detuneLabel1;
     ComboBox waveformCB1;

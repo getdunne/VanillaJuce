@@ -1,12 +1,13 @@
 #pragma once
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "SynthSound.h"
+#include "DSP_Client.h"
 
 class GuiEgTab  :   public Component,
                     public Slider::Listener
 {
 public:
-    GuiEgTab (SynthSound* pSynthSound);
+    GuiEgTab (SynthSound* pSynthSound, DSP_Client& dspc);
 
     void paint (Graphics& g) override;
     void resized() override;
@@ -16,6 +17,7 @@ public:
 
 private:
     SynthSound* pSound;
+    DSP_Client& dspClient;
 
     Label attackLabel, decayLabel, sustainLabel, releaseLabel;
     Slider attackSlider, decaySlider, sustainSlider, releaseSlider;

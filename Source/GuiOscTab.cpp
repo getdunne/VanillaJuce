@@ -1,7 +1,8 @@
 #include "GuiOscTab.h"
 
-GuiOscTab::GuiOscTab (SynthSound* pSynthSound)
+GuiOscTab::GuiOscTab (SynthSound* pSynthSound, DSP_Client& dspc)
     : pSound(pSynthSound)
+    , dspClient(dspc)
     , wfLabel1("waveform label1", TRANS("Osc1 Waveform"))
     , semiLabel1("semitone offset label1", TRANS("Pitch (semitones)"))
     , detuneLabel1("detune label1", TRANS("Detune (cents)"))
@@ -120,41 +121,54 @@ void GuiOscTab::resized()
 void GuiOscTab::comboBoxChanged (ComboBox* comboBoxThatHasChanged)
 {
     SynthParameters* pParams = pSound->pParams;
+    SynthParameters::ParameterIndex paramIndex;
+    float value;
+
     if (comboBoxThatHasChanged == &waveformCB1)
     {
-        pParams->osc1Waveform.fromComboBox(*comboBoxThatHasChanged);
+        paramIndex = SynthParameters::ParameterIndex::kOsc1WaveformIndex;
+        value = float(pParams->osc1Waveform.fromComboBox(*comboBoxThatHasChanged));
     }
     else if (comboBoxThatHasChanged == &waveformCB2)
     {
-        pParams->osc2Waveform.fromComboBox(*comboBoxThatHasChanged);
+        paramIndex = SynthParameters::ParameterIndex::kOsc2WaveformIndex;
+        value = float(pParams->osc2Waveform.fromComboBox(*comboBoxThatHasChanged));
     }
+
+    pParams->updateParam(paramIndex, value);
+    dspClient.queueParameterUpdate(int(paramIndex), value);
     pSound->parameterChanged();
 }
 
 void GuiOscTab::sliderValueChanged (Slider* sliderThatWasMoved)
 {
     float value = (float)(sliderThatWasMoved->getValue());
-    SynthParameters* pParams = pSound->pParams;
+    SynthParameters::ParameterIndex paramIndex;
+
     if (sliderThatWasMoved == &semiSlider1)
     {
-        pParams->osc1PitchOffsetSemitones = int(value);
+        paramIndex = SynthParameters::ParameterIndex::kOsc1PitchOffsetSemitones;
     }
     else if (sliderThatWasMoved == &semiSlider2)
     {
-        pParams->osc2PitchOffsetSemitones = int(value);
+        paramIndex = SynthParameters::ParameterIndex::kOsc2PitchOffsetSemitones;
     }
     else if (sliderThatWasMoved == &detuneSlider1)
     {
-        pParams->osc1DetuneOffsetCents = value;
+        paramIndex = SynthParameters::ParameterIndex::kOsc1DetuneOffsetCents;
     }
     else if (sliderThatWasMoved == &detuneSlider2)
     {
-        pParams->osc2DetuneOffsetCents = value;
+        paramIndex = SynthParameters::ParameterIndex::kOsc2DetuneOffsetCents;
     }
     else if (sliderThatWasMoved == &oscBlendSlider)
     {
-        pParams->oscBlend = 0.01f * value;
+        paramIndex = SynthParameters::ParameterIndex::kOscBlend;
+        value *= 0.01f;
     }
+
+    pSound->pParams->updateParam(paramIndex, value);
+    dspClient.queueParameterUpdate(int(paramIndex), value);
     pSound->parameterChanged();
 }
 

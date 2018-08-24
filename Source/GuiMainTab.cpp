@@ -1,8 +1,9 @@
 #include "GuiMainTab.h"
 
 //==============================================================================
-GuiMainTab::GuiMainTab (SynthSound* pSynthSound)
+GuiMainTab::GuiMainTab (SynthSound* pSynthSound, DSP_Client& dspc)
     : pSound(pSynthSound)
+    , dspClient(dspc)
     , masterLevelLabel("master level", TRANS("Master Volume"))
     , pbUpLabel("PB up", TRANS("P.Bend up (semi)"))
     , pbDownLabel("PB down", TRANS("P.Bend down (semi)"))
@@ -69,19 +70,24 @@ void GuiMainTab::resized()
 void GuiMainTab::sliderValueChanged (Slider* sliderThatWasMoved)
 {
     float value = (float)(sliderThatWasMoved->getValue());
-    SynthParameters* pParams = pSound->pParams;
+    SynthParameters::ParameterIndex paramIndex;
+
     if (sliderThatWasMoved == &masterLevelSlider)
     {
-        pParams->masterLevel = 0.1f * value;
+        paramIndex = SynthParameters::ParameterIndex::kMasterLevel;
+        value *= 0.1f;
     }
     else if (sliderThatWasMoved == &pbUpSlider)
     {
-        pParams->pitchBendUpSemitones = int(value);
+        paramIndex = SynthParameters::ParameterIndex::kPitchBendUpSemitones;
     }
     else if (sliderThatWasMoved == &pbDownSlider)
     {
-        pParams->pitchBendDownSemitones = int(value);
+        paramIndex = SynthParameters::ParameterIndex::kPitchBendDownSemitones;
     }
+
+    pSound->pParams->updateParam(paramIndex, value);
+    dspClient.queueParameterUpdate(int(paramIndex), value);
     pSound->parameterChanged();
 }
 

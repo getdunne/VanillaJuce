@@ -68,3 +68,56 @@ void SynthParameters::putXml(XmlElement* xml)
     ampEgSustainLevel = (float)(xml->getDoubleAttribute("ampEgSustainLevel"));
     ampEgReleaseTimeSeconds = (float)(xml->getDoubleAttribute("ampEgReleaseTimeSeconds"));
 }
+
+bool SynthParameters::updateParam(ParameterIndex paramIndex, float newValue)
+{
+    switch (paramIndex)
+    {
+        case kUpdateLock:
+            updateLocked = (newValue != 0.0f);
+            break;
+        case kMasterLevel:
+            masterLevel = newValue;
+            break;
+        case kOscBlend:
+            oscBlend = newValue;
+            break;
+        case kPitchBendUpSemitones:
+            pitchBendUpSemitones = int(newValue);
+            break;
+        case kPitchBendDownSemitones:
+            pitchBendDownSemitones = int(newValue);
+            break;
+        case kOsc1WaveformIndex:
+            osc1Waveform.index = (SynthWaveform::WaveformTypeIndex)(int(newValue));
+            break;
+        case kOsc1PitchOffsetSemitones:
+            osc1PitchOffsetSemitones = int(newValue);
+            break;
+        case kOsc1DetuneOffsetCents:
+            osc1DetuneOffsetCents = int(newValue);
+            break;
+        case kOsc2WaveformIndex:
+            osc2Waveform.index = (SynthWaveform::WaveformTypeIndex)(int(newValue));
+            break;
+        case kOsc2PitchOffsetSemitones:
+            osc2PitchOffsetSemitones = newValue;
+            break;
+        case kOsc2DetuneOffsetCents:
+            osc2DetuneOffsetCents = newValue;
+            break;
+        case kAmpEgAttackTimeSeconds:
+            ampEgAttackTimeSeconds = newValue;
+            break;
+        case kAmpEgDecayTimeSeconds:
+            ampEgDecayTimeSeconds = newValue;
+            break;
+        case kAmpEgSustainLevel:
+            ampEgSustainLevel = newValue;
+            break;
+        case kAmpEgReleaseTimeSeconds:
+            ampEgReleaseTimeSeconds = newValue;
+            break;
+    }
+    return !updateLocked;
+}

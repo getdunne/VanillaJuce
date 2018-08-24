@@ -1,11 +1,12 @@
 #pragma once
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "SynthSound.h"
+#include "DSP_Client.h"
 
 class GuiMainTab : public Component, public Slider::Listener
 {
 public:
-    GuiMainTab (SynthSound* pSynthSound);
+    GuiMainTab (SynthSound* pSynthSound, DSP_Client& dspc);
     ~GuiMainTab();
 
     void paint (Graphics& g) override;
@@ -16,6 +17,7 @@ public:
 
 private:
     SynthSound* pSound;
+    DSP_Client& dspClient;
 
     Label masterLevelLabel, pbUpLabel, pbDownLabel;
     Slider masterLevelSlider, pbUpSlider, pbDownSlider;

@@ -1,7 +1,8 @@
 #include "GuiEgTab.h"
 
-GuiEgTab::GuiEgTab (SynthSound* pSynthSound)
+GuiEgTab::GuiEgTab (SynthSound* pSynthSound, DSP_Client& dspc)
     : pSound(pSynthSound)
+    , dspClient(dspc)
     , attackLabel("attack", TRANS("Attack Time (sec)"))
     , decayLabel("decay", TRANS("Decay Time (sec)"))
     , sustainLabel("sustain", TRANS("Sustain Level (%)"))
@@ -69,11 +70,28 @@ void GuiEgTab::resized()
 void GuiEgTab::sliderValueChanged (Slider* sliderThatWasMoved)
 {
     float value = (float)(sliderThatWasMoved->getValue());
-    SynthParameters* pParams = pSound->pParams;
-    if (sliderThatWasMoved == &attackSlider) pParams->ampEgAttackTimeSeconds = value;
-    else if (sliderThatWasMoved == &decaySlider) pParams->ampEgDecayTimeSeconds = value;
-    else if (sliderThatWasMoved == &sustainSlider) pParams->ampEgSustainLevel = 0.01f * value;
-    else if (sliderThatWasMoved == &releaseSlider) pParams->ampEgReleaseTimeSeconds = value;
+    SynthParameters::ParameterIndex paramIndex;
+
+    if (sliderThatWasMoved == &attackSlider)
+    {
+        paramIndex = SynthParameters::ParameterIndex::kAmpEgAttackTimeSeconds;
+    }
+    else if (sliderThatWasMoved == &decaySlider)
+    {
+        paramIndex = SynthParameters::ParameterIndex::kAmpEgDecayTimeSeconds;
+    }
+    else if (sliderThatWasMoved == &sustainSlider)
+    {
+        paramIndex = SynthParameters::ParameterIndex::kAmpEgSustainLevel;
+        value *= 0.01f;
+    }
+    else if (sliderThatWasMoved == &releaseSlider)
+    {
+        paramIndex = SynthParameters::ParameterIndex::kAmpEgReleaseTimeSeconds;
+    }
+
+    pSound->pParams->updateParam(paramIndex, value);
+    dspClient.queueParameterUpdate(int(paramIndex), value);
     pSound->parameterChanged();
 }
 

@@ -1,6 +1,8 @@
 #pragma once
 #include "../JuceLibraryCode/JuceHeader.h"
 #include <stdint.h>
+#include <queue>
+#include <mutex>
 
 #define MAXFRAMES 2048
 #define CHANNELS 2
@@ -8,6 +10,7 @@
 #define BUFLEN (MAXFRAMES * CHANNELS * DATASIZE)
 #define DEFAULT_PORT 27016
 #define MAXMIDIMSGS 100
+#define MAXPARAMMSGS 100
 
 #pragma pack(push, 1)
 
@@ -57,6 +60,10 @@ public:
     bool isConnected() { return socket.isConnected(); }
     void disconnect();
 
+    void queueParameterUpdate(int paramIndex, float newValue);
+
+    bool processBlock(AudioBuffer<float>& buffer, MidiBuffer& midiMessages);
+
     class Listener
     {
     public:
@@ -66,15 +73,19 @@ public:
     void addListener(Listener* listener) { listeners.add(listener); }
     void removeListener(Listener* listener) { listeners.remove(listener); }
 
-    bool processBlock(AudioBuffer<float>& buffer, MidiBuffer& midiMessages);
-
 protected:
     StreamingSocket socket;
     ListenerList<Listener> listeners;
 
     bool disconnectPending;
 
-    char databuf[sizeof(SampleDataHeader) + MAXMIDIMSGS*sizeof(MIDIMessageInfoStruct) + BUFLEN];
+    std::queue<ParamMessageStruct> paramUpdateQueue;
+    std::mutex paramQueueMutex;
+
+    char databuf[sizeof(SampleDataHeader)
+                    + MAXMIDIMSGS*sizeof(MIDIMessageInfoStruct)
+                    + MAXPARAMMSGS*sizeof(ParamMessageStruct)
+                    + BUFLEN];
     bool firstPacket;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(DSP_Client)
