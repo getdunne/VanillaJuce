@@ -11,11 +11,13 @@
               pluginWantsMidiIn="1" pluginProducesMidiOut="0" pluginIsMidiEffectPlugin="0"
               pluginEditorRequiresKeys="0" pluginAUExportPrefix="VanillaJuceAU"
               pluginRTASCategory="" aaxIdentifier="com.yourcompany.VanillaJuce"
-              pluginAAXCategory="2" jucerVersion="5.3.2" pluginFormats="buildAU,buildStandalone,buildVST"
+              pluginAAXCategory="2" jucerVersion="5.3.2" pluginFormats="buildVST,buildAU,buildStandalone"
               pluginCharacteristicsValue="pluginIsSynth,pluginWantsMidiIn">
   <MAINGROUP id="yt1M8n" name="VanillaJuce">
     <GROUP id="{5872D22E-CBD0-ED29-66AC-7E15BC05C5FB}" name="Source">
       <GROUP id="{9AD1E5A5-ABFC-869D-143A-C29114E819DA}" name="_Plugin">
+        <FILE id="KdFvpC" name="DSP_Client.cpp" compile="1" resource="0" file="Source/DSP_Client.cpp"/>
+        <FILE id="c2MclB" name="DSP_Client.h" compile="0" resource="0" file="Source/DSP_Client.h"/>
         <FILE id="g9O2lU" name="PluginProcessor.cpp" compile="1" resource="0"
               file="Source/PluginProcessor.cpp"/>
         <FILE id="xcCAHl" name="PluginProcessor.h" compile="0" resource="0"
@@ -29,6 +31,8 @@
         <FILE id="nlfzsn" name="GuiEgTab.h" compile="0" resource="0" file="Source/GuiEgTab.h"/>
         <FILE id="zhOzll" name="GuiMainTab.cpp" compile="1" resource="0" file="Source/GuiMainTab.cpp"/>
         <FILE id="R6xzL8" name="GuiMainTab.h" compile="0" resource="0" file="Source/GuiMainTab.h"/>
+        <FILE id="goRQA5" name="GuiNetTab.cpp" compile="1" resource="0" file="Source/GuiNetTab.cpp"/>
+        <FILE id="H6pYqR" name="GuiNetTab.h" compile="0" resource="0" file="Source/GuiNetTab.h"/>
         <FILE id="aqkUW1" name="GuiOscTab.cpp" compile="1" resource="0" file="Source/GuiOscTab.cpp"/>
         <FILE id="S2yjA2" name="GuiOscTab.h" compile="0" resource="0" file="Source/GuiOscTab.h"/>
         <FILE id="MGJOhZ" name="GuiTabs.cpp" compile="1" resource="0" file="Source/GuiTabs.cpp"/>
