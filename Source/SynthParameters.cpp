@@ -121,3 +121,44 @@ bool SynthParameters::updateParam(ParameterIndex paramIndex, float newValue)
     }
     return !updateLocked;
 }
+
+float SynthParameters::getParam(int paramIndex)
+{
+    switch (paramIndex)
+    {
+    case kUpdateLock:
+        return updateLocked ? 1.0f : 0.0f;
+    case kMasterLevel:
+        return masterLevel;
+    case kOscBlend:
+        return oscBlend;
+    case kPitchBendUpSemitones:
+        return float(pitchBendUpSemitones);
+    case kPitchBendDownSemitones:
+        return float(pitchBendDownSemitones);
+    case kOsc1WaveformIndex:
+        return float(int(osc1Waveform.index));
+    case kOsc1PitchOffsetSemitones:
+        return float(osc1PitchOffsetSemitones);
+    case kOsc1DetuneOffsetCents:
+        return float(osc1DetuneOffsetCents);
+    case kOsc2WaveformIndex:
+        return float(int(osc2Waveform.index));
+    case kOsc2PitchOffsetSemitones:
+        return float(osc2PitchOffsetSemitones);
+    case kOsc2DetuneOffsetCents:
+        return float(osc2DetuneOffsetCents);
+    case kAmpEgAttackTimeSeconds:
+        return ampEgAttackTimeSeconds;
+    case kAmpEgDecayTimeSeconds:
+        return ampEgDecayTimeSeconds;
+    case kAmpEgSustainLevel:
+        return ampEgSustainLevel;
+    case kAmpEgReleaseTimeSeconds:
+        return ampEgReleaseTimeSeconds;
+    }
+
+    // just here as a catch-all
+    jassertfalse;
+    return 0.0f;
+}

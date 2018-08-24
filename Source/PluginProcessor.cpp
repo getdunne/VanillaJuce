@@ -13,12 +13,33 @@ VanillaJuceAudioProcessor::VanillaJuceAudioProcessor()
     pSound = new SynthSound(synth);
     pSound->pParams = &programBank[currentProgram];
     synth.addSound(pSound);
+
+    dspClient.addListener(this);
 }
 
 void VanillaJuceAudioProcessor::initializePrograms()
 {
     for (int i = 0; i < kNumberOfPrograms; i++)
         programBank[i].setDefaultValues();
+}
+
+void VanillaJuceAudioProcessor::queueAllSynthParams()
+{
+    if (!dspClient.isConnected()) return;
+
+    dspClient.queueParameterUpdate(0, 1.0f);    // set update lock
+    for (int paramIndex = 1;
+        paramIndex < SynthParameters::ParameterIndex::kNumberOfParameterIndices;
+        paramIndex++)
+    {
+        dspClient.queueParameterUpdate(paramIndex, pSound->pParams->getParam(paramIndex));
+    }
+    dspClient.queueParameterUpdate(0, 0.0f);    // clear update lock
+}
+
+void VanillaJuceAudioProcessor::connectStatusChanged(bool connected)
+{
+    if (connected) queueAllSynthParams();
 }
 
 const String VanillaJuceAudioProcessor::getName() const
@@ -63,7 +84,8 @@ void VanillaJuceAudioProcessor::setCurrentProgram (int index)
 {
     currentProgram = index;
     pSound->pParams = &programBank[currentProgram];
-    sendChangeMessage();
+    sendChangeMessage();    // update GUI
+    queueAllSynthParams();  // update remote DSP if connected
 }
 
 const String VanillaJuceAudioProcessor::getProgramName (int index)
@@ -146,7 +168,9 @@ void VanillaJuceAudioProcessor::setCurrentProgramStateInformation(const void* da
 {
     ScopedPointer<XmlElement> xml = getXmlFromBinary(data, sizeInBytes);
     programBank[currentProgram].putXml(xml);
-    sendChangeMessage();
+
+    sendChangeMessage();    // update GUI
+    queueAllSynthParams();  // update remote DSP if connected
 }
 
 // This creates new instances of the plugin.

@@ -8,6 +8,7 @@
 class VanillaJuceAudioProcessor
     : public AudioProcessor
     , public ChangeBroadcaster
+    , public DSP_Client::Listener
 {
 public:
     VanillaJuceAudioProcessor();
@@ -37,6 +38,9 @@ public:
     void getCurrentProgramStateInformation(MemoryBlock& destData) override;
     void setCurrentProgramStateInformation(const void* data, int sizeInBytes) override;
 
+    // DSP_Client::Listener
+    void connectStatusChanged(bool connected) override;
+
 public:
     SynthSound* getSound() { return pSound; }
     DSP_Client& getDspClient() { return dspClient; }
@@ -54,6 +58,7 @@ private:
 
 private:
     void initializePrograms();
+    void queueAllSynthParams();
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (VanillaJuceAudioProcessor)
 };

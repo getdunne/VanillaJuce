@@ -12,9 +12,15 @@ DSP_Client::~DSP_Client()
 
 bool DSP_Client::connect(String ipAddress, int portNumber)
 {
+    if (socket.isConnected()) return true;
+
     firstPacket = true;
     bool connected = socket.connect(ipAddress, portNumber);
-    listeners.call([connected](Listener& l) { l.connectStatusChanged(connected); });
+    if (connected)
+    {
+        listeners.call([connected](Listener& l) { l.connectStatusChanged(connected); });
+    }
+
     return connected;
 }
 
@@ -27,7 +33,7 @@ void DSP_Client::queueParameterUpdate(int paramIndex, float newValue)
 {
     if (!socket.isConnected()) return;
 
-    DBG("Queueing param " + String(paramIndex) + " <= " + String(newValue));
+    //DBG("Queueing param " + String(paramIndex) + " <= " + String(newValue));
     ParamMessageStruct pms;
     pms.effectIndex = 0;
     pms.paramIndex = paramIndex;
