@@ -1,23 +1,25 @@
 # VanillaJuce
 
-**VanillaJuce** is a simple example of a complete VST2.4 + AUv2 synthesizer built with JUCE 5.1.
+**VanillaJuce** is a simple example of a "complete" synthesizer plug-in built with JUCE 5.1.
 
-When I say **VanillaJuce** is "complete", I don't mean that this is a particularly great synthesizer; in fact, it's not that great at all. What I mean is simply that all of the major plugin requirements are covered, i.e.:
-- VST 2.4 compatible plugin builds under Microsoft Visual Studio 2017 (Community version is sufficient)
-- Audio Unit v2 compatible plugin builds under Apple XCode (tested with v8.2.1)
-- Plugin has a simple GUI editor, using JUCE controls only (no custom graphics)
+When I say "complete", I don't mean that this is a particularly great synthesizer; in fact, it's not that great at all. What I mean is simply that all of the major plug-in requirements are covered, i.e.:
+- VST 2.4 compatible plug-in builds under Microsoft Visual Studio 2017 (Community version is sufficient)
+- Audio Unit v2 compatible plug-in builds under Apple XCode (tested with v8.2.1)
+- Plug-in has a simple GUI editor (using JUCE built-in controls only, no custom graphics)
 - Very basic 16-voice synthesizer with 2 oscillators and ADSR amplitude envelope
 - Dynamic editing of sound parameters is supported
-- Saving and recalling sound programs (via plugin host) is supported
+- Saving and recalling sound programs (via plug-in host) is supported
 
-The basic **VanillaJuce** doesn't support *parameter automation*. Have a look at the *params-old* branch to see how this can be added using the (deprecated) *AudioParameter* classes. (I'm working on a second implementation using the newer *AudioProcessorValueTreeState* class.)
+The basic **VanillaJuce** doesn't support *parameter automation*. See https://github.com/getdunne/juce-AudioParameterTest.)
 
 You can find *lots of detailed documentation* about **VanillaJuce** at http://getdunne.net/wiki/doku.php?id=vanillajuce.
 
 ## Code licensing terms
 This code is licensed under the terms of the MIT License (below, and also in the file *LICENSE* in this repo). To compile it, you will need a copy of the [JUCE framework](https://juce.com), and the resulting *combined work* will be subject to JUCE's own licensing terms.
 
-It is my explicit INTENT, as the author of this code, that everyone should have the right to use all or part of it in any JUCE-based program, and in the event that any such program should become subject to the GPL3 license (in accordance with the JUCE license terms), that this right should not be abridged. However, I doubt that this statement of intent would carry any weight under the law, so at this point I can only say: USE AT YOUR OWN RISK.
+It is my INTENT, as the author of this code, that everyone should have the right to use all or part of it in any JUCE-based program, and in the event that any such program should become subject to the GPL3 license (in accordance with the JUCE license terms), that this right should not be abridged. However, I doubt that this statement of intent would carry any weight under the law, so at this point I can only say: USE AT YOUR OWN RISK.
+
+Shane Dunne, October 2018
 
 > The MIT License (MIT)
 > 
