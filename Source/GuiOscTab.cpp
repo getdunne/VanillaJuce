@@ -141,8 +141,8 @@ void GuiOscTab::resized()
 void GuiOscTab::comboBoxChanged (ComboBox* comboBoxThatHasChanged)
 {
     SynthParameters* pParams = pSound->pParams;
-    SynthParameters::ParameterIndex paramIndex;
-    float value;
+    SynthParameters::ParameterIndex paramIndex = SynthParameters::ParameterIndex::kMasterLevel;
+    float value = 0.0f;
 
     if (comboBoxThatHasChanged == &waveformCB1)
     {
@@ -163,7 +163,7 @@ void GuiOscTab::comboBoxChanged (ComboBox* comboBoxThatHasChanged)
 void GuiOscTab::sliderValueChanged (Slider* sliderThatWasMoved)
 {
     float value = (float)(sliderThatWasMoved->getValue());
-    SynthParameters::ParameterIndex paramIndex;
+    SynthParameters::ParameterIndex paramIndex = SynthParameters::ParameterIndex::kMasterLevel;
 
     if (sliderThatWasMoved == &semiSlider1)
     {

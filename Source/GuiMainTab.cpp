@@ -90,7 +90,7 @@ void GuiMainTab::resized()
 void GuiMainTab::sliderValueChanged (Slider* sliderThatWasMoved)
 {
     float value = (float)(sliderThatWasMoved->getValue());
-    SynthParameters::ParameterIndex paramIndex;
+    SynthParameters::ParameterIndex paramIndex = SynthParameters::ParameterIndex::kMasterLevel;
 
     if (sliderThatWasMoved == &masterLevelSlider)
     {

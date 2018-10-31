@@ -138,6 +138,8 @@ bool SynthParameters::updateParam(ParameterIndex paramIndex, float newValue)
         case kAmpEgReleaseTimeSeconds:
             ampEgReleaseTimeSeconds = newValue;
             break;
+        default:
+            break;
     }
     return !updateLocked;
 }

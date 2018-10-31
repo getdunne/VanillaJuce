@@ -88,6 +88,7 @@ public:
     {
     public:
         virtual void connectStatusChanged(bool connected) = 0;
+        virtual ~Listener() = default;
     };
 
     void addListener(Listener* listener) { listeners.add(listener); }
