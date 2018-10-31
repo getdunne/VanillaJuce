@@ -67,7 +67,7 @@ public:
 
 private:
     static const int kNumberOfPrograms = 128;
-    static const int kNumberOfVoices = 16;
+    static const int kNumberOfVoices = 64;
 
     Synth synth;
     SynthSound* pSound;
