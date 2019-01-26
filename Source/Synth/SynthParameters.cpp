@@ -42,8 +42,8 @@ void SynthParameters::setDefaultValues()
     filterEgSustainLevel = 0.0f;
     filterEgReleaseTimeSeconds = 1.0f;
     filterType = SVFLowpass;
-    filterCutoff = 3000.0f;
-    filterResonance = 0.0f;
+    filterCutoff = 250.0f;
+    filterResonance = 0.5f;
     filterEgAmount = 10.0f;
 }
 
@@ -88,31 +88,31 @@ void SynthParameters::putXml(XmlElement* xml)
 {
     programName = xml->getStringAttribute("name");
 
-    masterLevel = (float)(xml->getDoubleAttribute("masterLevel"));
-    oscBlend = (float)(xml->getDoubleAttribute("oscBlend"));
-    pitchBendUpSemitones = xml->getIntAttribute("pitchBendUpSemitones");
-    pitchBendDownSemitones = xml->getIntAttribute("pitchBendDownSemitones");
+    masterLevel = (float)(xml->getDoubleAttribute("masterLevel", masterLevel));
+    oscBlend = (float)(xml->getDoubleAttribute("oscBlend", oscBlend));
+    pitchBendUpSemitones = xml->getIntAttribute("pitchBendUpSemitones", pitchBendUpSemitones);
+    pitchBendDownSemitones = xml->getIntAttribute("pitchBendDownSemitones", pitchBendDownSemitones);
 
-    osc1Waveform.setFromName(xml->getStringAttribute("osc1Waveform"));
-    osc1PitchOffsetSemitones = xml->getIntAttribute("osc1PitchOffsetSemitones");
-    osc1DetuneOffsetCents = (float)(xml->getDoubleAttribute("osc1DetuneOffsetCents"));
+    osc1Waveform.setFromName(xml->getStringAttribute("osc1Waveform", osc1Waveform.name()));
+    osc1PitchOffsetSemitones = xml->getIntAttribute("osc1PitchOffsetSemitones", osc1PitchOffsetSemitones);
+    osc1DetuneOffsetCents = (float)(xml->getDoubleAttribute("osc1DetuneOffsetCents", osc1DetuneOffsetCents));
 
-    osc2Waveform.setFromName(xml->getStringAttribute("osc2Waveform"));
-    osc2PitchOffsetSemitones = xml->getIntAttribute("osc2PitchOffsetSemitones");
-    osc2DetuneOffsetCents = (float)(xml->getDoubleAttribute("osc2DetuneOffsetCents"));
+    osc2Waveform.setFromName(xml->getStringAttribute("osc2Waveform", osc2Waveform.name()));
+    osc2PitchOffsetSemitones = xml->getIntAttribute("osc2PitchOffsetSemitones", osc2PitchOffsetSemitones);
+    osc2DetuneOffsetCents = (float)(xml->getDoubleAttribute("osc2DetuneOffsetCents", osc2DetuneOffsetCents));
 
-    ampEgAttackTimeSeconds = (float)(xml->getDoubleAttribute("ampEgAttackTimeSeconds"));
-    ampEgDecayTimeSeconds = (float)(xml->getDoubleAttribute("ampEgDecayTimeSeconds"));
-    ampEgSustainLevel = (float)(xml->getDoubleAttribute("ampEgSustainLevel"));
-    ampEgReleaseTimeSeconds = (float)(xml->getDoubleAttribute("ampEgReleaseTimeSeconds"));
+    ampEgAttackTimeSeconds = (float)(xml->getDoubleAttribute("ampEgAttackTimeSeconds", ampEgAttackTimeSeconds));
+    ampEgDecayTimeSeconds = (float)(xml->getDoubleAttribute("ampEgDecayTimeSeconds", ampEgDecayTimeSeconds));
+    ampEgSustainLevel = (float)(xml->getDoubleAttribute("ampEgSustainLevel", ampEgSustainLevel));
+    ampEgReleaseTimeSeconds = (float)(xml->getDoubleAttribute("ampEgReleaseTimeSeconds", ampEgReleaseTimeSeconds));
 
-    filterEgAttackTimeSeconds = (float)(xml->getDoubleAttribute("filterEgAttackTimeSeconds"));
-    filterEgDecayTimeSeconds = (float)(xml->getDoubleAttribute("filterEgDecayTimeSeconds"));
-    filterEgSustainLevel = (float)(xml->getDoubleAttribute("filterEgSustainLevel"));
-    filterEgReleaseTimeSeconds = (float)(xml->getDoubleAttribute("filterEgReleaseTimeSeconds"));
+    filterEgAttackTimeSeconds = (float)(xml->getDoubleAttribute("filterEgAttackTimeSeconds", filterEgAttackTimeSeconds));
+    filterEgDecayTimeSeconds = (float)(xml->getDoubleAttribute("filterEgDecayTimeSeconds", filterEgDecayTimeSeconds));
+    filterEgSustainLevel = (float)(xml->getDoubleAttribute("filterEgSustainLevel", filterEgSustainLevel));
+    filterEgReleaseTimeSeconds = (float)(xml->getDoubleAttribute("filterEgReleaseTimeSeconds", filterEgReleaseTimeSeconds));
 
-    filterType = (SVFType)(xml->getIntAttribute("filterType"));
-    filterCutoff = (float)(xml->getDoubleAttribute("filterCutoff"));
-    filterResonance = (float)(xml->getDoubleAttribute("filterResonance"));
-    filterEgAmount = (float)(xml->getDoubleAttribute("filterEgAmount"));
+    filterType = (SVFType)(xml->getIntAttribute("filterType", filterType));
+    filterCutoff = (float)(xml->getDoubleAttribute("filterCutoff", filterCutoff));
+    filterResonance = (float)(xml->getDoubleAttribute("filterResonance", filterResonance));
+    filterEgAmount = (float)(xml->getDoubleAttribute("filterEgAmount", filterEgAmount));
 }

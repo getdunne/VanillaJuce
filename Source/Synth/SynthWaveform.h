@@ -33,10 +33,10 @@ private:
 
 public:
     // default constructor
-    SynthWaveform() : index(kSine) {}
+    SynthWaveform() : index(kSawtooth) {}
 
     // set to default state after construction
-    void setToDefault() { index = kSine; }
+    void setToDefault() { index = kSawtooth; }
 
     // serialize: get human-readable name of this waveform
     String name();
@@ -48,7 +48,6 @@ public:
     static void setupComboBox(ComboBox& cb);
     void fromComboBox(ComboBox& cb);
     void toComboBox(ComboBox& cb);
-
 
 private:
     // waveform names: ordered list of string literals
