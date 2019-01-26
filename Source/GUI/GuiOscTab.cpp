@@ -84,8 +84,6 @@ GuiOscTab::GuiOscTab (SynthSound* pSynthSound)
     oscBlendSlider.setSliderStyle(Slider::LinearVertical);
     oscBlendSlider.setTextBoxStyle(Slider::TextBoxRight, false, 40, 20);
     oscBlendSlider.addListener(this);
-
-    notify();
 }
 
 GuiOscTab::~GuiOscTab()

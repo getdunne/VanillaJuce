@@ -49,7 +49,7 @@ float SynthVoice::pitchBendCents()
     }
 }
 
-static double noteHz(int midiNoteNumber, double centsOffset)
+static double noteFreqHz(int midiNoteNumber, double centsOffset)
 {
     double hertz = MidiMessage::getMidiNoteInHertz(midiNoteNumber);
     hertz *= std::pow(2.0, centsOffset / 1200);
@@ -76,7 +76,8 @@ void SynthVoice::setup (bool pitchBendOnly)
     float masterLevel = float(noteVelocity * pParams->masterLevel);
     double pbCents = pitchBendCents();
 
-    double cyclesPerSecond = noteHz(midiNote + pParams->osc1PitchOffsetSemitones, pParams->osc1DetuneOffsetCents + pbCents);
+    noteHz = float(noteFreqHz(midiNote + pParams->osc1PitchOffsetSemitones, pParams->osc1DetuneOffsetCents + pbCents));
+    double cyclesPerSecond = noteHz;
     double cyclesPerSample = cyclesPerSecond / sampleRateHz;
     osc1.setFrequency(cyclesPerSample);
     if (!pitchBendOnly)
@@ -86,7 +87,7 @@ void SynthVoice::setup (bool pitchBendOnly)
         osc1Level.setValue(float(pParams->oscBlend * masterLevel));
     }
 
-    cyclesPerSecond = noteHz(midiNote + pParams->osc2PitchOffsetSemitones, pParams->osc2DetuneOffsetCents + pbCents);
+    cyclesPerSecond = noteFreqHz(midiNote + pParams->osc2PitchOffsetSemitones, pParams->osc2DetuneOffsetCents + pbCents);
     cyclesPerSample = cyclesPerSecond / sampleRateHz;
     osc2.setFrequency(cyclesPerSample);
     if (!pitchBendOnly)
@@ -102,7 +103,15 @@ void SynthVoice::setup (bool pitchBendOnly)
         ampEG.decaySeconds = pParams->ampEgDecayTimeSeconds;
         ampEG.sustainLevel = pParams->ampEgSustainLevel;
         ampEG.releaseSeconds = pParams->ampEgReleaseTimeSeconds;
+        filterEG.attackSeconds = pParams->filterEgAttackTimeSeconds;
+        filterEG.decaySeconds = pParams->filterEgDecayTimeSeconds;
+        filterEG.sustainLevel = pParams->filterEgSustainLevel;
+        filterEG.releaseSeconds = pParams->filterEgReleaseTimeSeconds;
     }
+
+    filterCutoff = pParams->filterCutoff / 261.6f;  // normalize to middle C
+    filterEgMultiple = pParams->filterEgAmount;
+    filter.setFilter(float(getSampleRate()), pParams->filterType, pParams->filterCutoff, pParams->filterResonance, 1.0f);
 }
 
 void SynthVoice::soundParameterChanged()
@@ -123,6 +132,7 @@ void SynthVoice::startNote(int midiNoteNumber, float velocity, SynthesiserSound*
 
     setup(false);
     ampEG.start(sampleRateHz);
+    filterEG.start(sampleRateHz);
 }
 
 void SynthVoice::stopNote(float velocity, bool allowTailOff)
@@ -133,6 +143,7 @@ void SynthVoice::stopNote(float velocity, bool allowTailOff)
     {
         tailOff = true;
         ampEG.release();
+        filterEG.release();
     }
     else
     {
@@ -165,8 +176,14 @@ void SynthVoice::renderNextBlock(AudioSampleBuffer& outputBuffer, int startSampl
         float aeg = ampEG.getSample();
         float osc = osc1.getSample() * osc1Level.getNextValue() + osc2.getSample() * osc2Level.getNextValue();
         float sample = aeg * osc;
-        outputBuffer.addSample(0, startSample, sample);
-        outputBuffer.addSample(1, startSample, sample);
+        float feg = filterEG.getSample();
+        float cutoffHz = noteHz * (filterCutoff + feg * filterEgMultiple);
+        float fSampleRate = float(getSampleRate());
+        float fMaxCutoff = 0.49f * fSampleRate;
+        if (cutoffHz > fMaxCutoff) cutoffHz = fMaxCutoff;
+        filter.setCutoffFreq(cutoffHz);
+        outputBuffer.addSample(0, startSample, filter.processAudioSample(sample, 0));
+        outputBuffer.addSample(1, startSample, filter.processAudioSample(sample, 1));
         ++startSample;
     }
 }

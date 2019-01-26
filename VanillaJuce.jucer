@@ -11,51 +11,64 @@
               pluginWantsMidiIn="1" pluginProducesMidiOut="0" pluginIsMidiEffectPlugin="0"
               pluginEditorRequiresKeys="0" pluginAUExportPrefix="VanillaJuceAU"
               pluginRTASCategory="" aaxIdentifier="com.yourcompany.VanillaJuce"
-              pluginAAXCategory="2" jucerVersion="5.3.2" pluginFormats="buildAU,buildStandalone,buildVST"
-              pluginCharacteristicsValue="pluginIsSynth,pluginWantsMidiIn">
+              pluginAAXCategory="2" jucerVersion="5.4.1" pluginFormats="buildAU,buildStandalone,buildVST"
+              pluginCharacteristicsValue="pluginIsSynth,pluginWantsMidiIn"
+              headerPath="../../Source/Filter&#10;../../Source/GUI&#10;../../Source/Plugin&#10;../../Source/Synth">
   <MAINGROUP id="yt1M8n" name="VanillaJuce">
     <GROUP id="{5872D22E-CBD0-ED29-66AC-7E15BC05C5FB}" name="Source">
-      <GROUP id="{9AD1E5A5-ABFC-869D-143A-C29114E819DA}" name="_Plugin">
-        <FILE id="g9O2lU" name="PluginProcessor.cpp" compile="1" resource="0"
-              file="Source/PluginProcessor.cpp"/>
-        <FILE id="xcCAHl" name="PluginProcessor.h" compile="0" resource="0"
-              file="Source/PluginProcessor.h"/>
-        <FILE id="pYeZr3" name="PluginEditor.cpp" compile="1" resource="0"
-              file="Source/PluginEditor.cpp"/>
-        <FILE id="g4X0LC" name="PluginEditor.h" compile="0" resource="0" file="Source/PluginEditor.h"/>
+      <GROUP id="{851F9A49-0F99-74CB-864B-05717A6E3E40}" name="Filter">
+        <FILE id="Ssqzm1" name="DSPUtilities.cpp" compile="1" resource="0"
+              file="Source/Filter/DSPUtilities.cpp"/>
+        <FILE id="LhEbxU" name="DSPUtilities.h" compile="0" resource="0" file="Source/Filter/DSPUtilities.h"/>
+        <FILE id="CSTR3f" name="VAStateVariableFilter.cpp" compile="1" resource="0"
+              file="Source/Filter/VAStateVariableFilter.cpp"/>
+        <FILE id="beBjjI" name="VAStateVariableFilter.h" compile="0" resource="0"
+              file="Source/Filter/VAStateVariableFilter.h"/>
       </GROUP>
-      <GROUP id="{949A6042-58E6-5468-7AED-A277FF175C9F}" name="Editor/GUI">
-        <FILE id="y4N4KY" name="GuiEgTab.cpp" compile="1" resource="0" file="Source/GuiEgTab.cpp"/>
-        <FILE id="nlfzsn" name="GuiEgTab.h" compile="0" resource="0" file="Source/GuiEgTab.h"/>
-        <FILE id="zhOzll" name="GuiMainTab.cpp" compile="1" resource="0" file="Source/GuiMainTab.cpp"/>
-        <FILE id="R6xzL8" name="GuiMainTab.h" compile="0" resource="0" file="Source/GuiMainTab.h"/>
-        <FILE id="aqkUW1" name="GuiOscTab.cpp" compile="1" resource="0" file="Source/GuiOscTab.cpp"/>
-        <FILE id="S2yjA2" name="GuiOscTab.h" compile="0" resource="0" file="Source/GuiOscTab.h"/>
-        <FILE id="MGJOhZ" name="GuiTabs.cpp" compile="1" resource="0" file="Source/GuiTabs.cpp"/>
-        <FILE id="pqsVTL" name="GuiTabs.h" compile="0" resource="0" file="Source/GuiTabs.h"/>
+      <GROUP id="{0DD5D6F5-92E4-AF15-7F83-26DF04A9AF2C}" name="GUI">
+        <FILE id="iGc3xn" name="GuiEgTab.cpp" compile="1" resource="0" file="Source/GUI/GuiEgTab.cpp"/>
+        <FILE id="BbJcqv" name="GuiEgTab.h" compile="0" resource="0" file="Source/GUI/GuiEgTab.h"/>
+        <FILE id="C7Xh1E" name="GuiFilterTab.cpp" compile="1" resource="0"
+              file="Source/GUI/GuiFilterTab.cpp"/>
+        <FILE id="NCg3mH" name="GuiFilterTab.h" compile="0" resource="0" file="Source/GUI/GuiFilterTab.h"/>
+        <FILE id="qwFuT9" name="GuiMainTab.cpp" compile="1" resource="0" file="Source/GUI/GuiMainTab.cpp"/>
+        <FILE id="P95Z48" name="GuiMainTab.h" compile="0" resource="0" file="Source/GUI/GuiMainTab.h"/>
+        <FILE id="QccBK1" name="GuiOscTab.cpp" compile="1" resource="0" file="Source/GUI/GuiOscTab.cpp"/>
+        <FILE id="LzAp2t" name="GuiOscTab.h" compile="0" resource="0" file="Source/GUI/GuiOscTab.h"/>
+        <FILE id="ISzhs5" name="GuiTabs.cpp" compile="1" resource="0" file="Source/GUI/GuiTabs.cpp"/>
+        <FILE id="sepBJ8" name="GuiTabs.h" compile="0" resource="0" file="Source/GUI/GuiTabs.h"/>
       </GROUP>
-      <GROUP id="{E9C21987-10C7-5098-DA05-38933D66F674}" name="Synth">
-        <FILE id="cxqiGU" name="Synth.cpp" compile="1" resource="0" file="Source/Synth.cpp"/>
-        <FILE id="ffo7GD" name="Synth.h" compile="0" resource="0" file="Source/Synth.h"/>
-        <FILE id="Syx078" name="SynthEnvelopeGenerator.cpp" compile="1" resource="0"
-              file="Source/SynthEnvelopeGenerator.cpp"/>
-        <FILE id="PYc94j" name="SynthEnvelopeGenerator.h" compile="0" resource="0"
-              file="Source/SynthEnvelopeGenerator.h"/>
-        <FILE id="PkM9n0" name="SynthOscillator.cpp" compile="1" resource="0"
-              file="Source/SynthOscillator.cpp"/>
-        <FILE id="gzq4Po" name="SynthOscillator.h" compile="0" resource="0"
-              file="Source/SynthOscillator.h"/>
-        <FILE id="lWKRx4" name="SynthParameters.cpp" compile="1" resource="0"
-              file="Source/SynthParameters.cpp"/>
-        <FILE id="uBWN5A" name="SynthParameters.h" compile="0" resource="0"
-              file="Source/SynthParameters.h"/>
-        <FILE id="kFAAdh" name="SynthSound.cpp" compile="1" resource="0" file="Source/SynthSound.cpp"/>
-        <FILE id="KRjXGL" name="SynthSound.h" compile="0" resource="0" file="Source/SynthSound.h"/>
-        <FILE id="QXwWdW" name="SynthVoice.cpp" compile="1" resource="0" file="Source/SynthVoice.cpp"/>
-        <FILE id="TVn4W3" name="SynthVoice.h" compile="0" resource="0" file="Source/SynthVoice.h"/>
-        <FILE id="aN8wgw" name="SynthWaveform.cpp" compile="1" resource="0"
-              file="Source/SynthWaveform.cpp"/>
-        <FILE id="FSgmh3" name="SynthWaveform.h" compile="0" resource="0" file="Source/SynthWaveform.h"/>
+      <GROUP id="{1B467170-80AD-3B3D-7A4A-676BACA09328}" name="Plugin">
+        <FILE id="SgWZNw" name="PluginEditor.cpp" compile="1" resource="0"
+              file="Source/Plugin/PluginEditor.cpp"/>
+        <FILE id="hgFvvh" name="PluginEditor.h" compile="0" resource="0" file="Source/Plugin/PluginEditor.h"/>
+        <FILE id="wsJSvO" name="PluginProcessor.cpp" compile="1" resource="0"
+              file="Source/Plugin/PluginProcessor.cpp"/>
+        <FILE id="th2zpt" name="PluginProcessor.h" compile="0" resource="0"
+              file="Source/Plugin/PluginProcessor.h"/>
+      </GROUP>
+      <GROUP id="{E149297A-8E4C-D2D5-A14B-0EFC4CC1FD97}" name="Synth">
+        <FILE id="kVEM1I" name="Synth.cpp" compile="1" resource="0" file="Source/Synth/Synth.cpp"/>
+        <FILE id="x4gY0z" name="Synth.h" compile="0" resource="0" file="Source/Synth/Synth.h"/>
+        <FILE id="zt2NFZ" name="SynthEnvelopeGenerator.cpp" compile="1" resource="0"
+              file="Source/Synth/SynthEnvelopeGenerator.cpp"/>
+        <FILE id="E7n0e9" name="SynthEnvelopeGenerator.h" compile="0" resource="0"
+              file="Source/Synth/SynthEnvelopeGenerator.h"/>
+        <FILE id="Hy6BYN" name="SynthOscillator.cpp" compile="1" resource="0"
+              file="Source/Synth/SynthOscillator.cpp"/>
+        <FILE id="E2Lwp2" name="SynthOscillator.h" compile="0" resource="0"
+              file="Source/Synth/SynthOscillator.h"/>
+        <FILE id="UYOFNC" name="SynthParameters.cpp" compile="1" resource="0"
+              file="Source/Synth/SynthParameters.cpp"/>
+        <FILE id="ngwIgf" name="SynthParameters.h" compile="0" resource="0"
+              file="Source/Synth/SynthParameters.h"/>
+        <FILE id="DxpoQm" name="SynthSound.cpp" compile="1" resource="0" file="Source/Synth/SynthSound.cpp"/>
+        <FILE id="Wjznia" name="SynthSound.h" compile="0" resource="0" file="Source/Synth/SynthSound.h"/>
+        <FILE id="LfR8Ex" name="SynthVoice.cpp" compile="1" resource="0" file="Source/Synth/SynthVoice.cpp"/>
+        <FILE id="UCRzux" name="SynthVoice.h" compile="0" resource="0" file="Source/Synth/SynthVoice.h"/>
+        <FILE id="AmDIlh" name="SynthWaveform.cpp" compile="1" resource="0"
+              file="Source/Synth/SynthWaveform.cpp"/>
+        <FILE id="LbrhoR" name="SynthWaveform.h" compile="0" resource="0" file="Source/Synth/SynthWaveform.h"/>
       </GROUP>
     </GROUP>
   </MAINGROUP>
@@ -121,5 +134,6 @@
   <JUCEOPTIONS JUCE_QUICKTIME="disabled"/>
   <LIVE_SETTINGS>
     <OSX/>
+    <WINDOWS/>
   </LIVE_SETTINGS>
 </JUCERPROJECT>

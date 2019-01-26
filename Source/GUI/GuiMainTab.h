@@ -21,26 +21,24 @@ THE SOFTWARE.
 #pragma once
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "SynthSound.h"
-#include "GuiMainTab.h"
-#include "GuiOscTab.h"
-#include "GuiEgTab.h"
 
-class GuiTabs  : public Component
+class GuiMainTab : public Component, public Slider::Listener
 {
 public:
-    GuiTabs (SynthSound* pSynthSound);
-    ~GuiTabs();
+    GuiMainTab (SynthSound* pSynthSound);
+    ~GuiMainTab();
 
     void paint (Graphics& g) override;
     void resized() override;
+    void sliderValueChanged (Slider* sliderThatWasMoved) override;
 
-    void notify();
+    virtual void notify();
 
 private:
-    ScopedPointer<TabbedComponent> tabbedComponent;
-    GuiMainTab* pMainTab;
-    GuiOscTab* pOscTab;
-    GuiEgTab* pAmpEgTab;
+    SynthSound* pSound;
 
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (GuiTabs)
+    Label masterLevelLabel, pbUpLabel, pbDownLabel;
+    Slider masterLevelSlider, pbUpSlider, pbDownSlider;
+
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (GuiMainTab)
 };

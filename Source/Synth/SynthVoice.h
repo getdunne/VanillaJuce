@@ -23,19 +23,22 @@ THE SOFTWARE.
 #include "SynthSound.h"
 #include "SynthOscillator.h"
 #include "SynthEnvelopeGenerator.h"
+#include "VAStateVariableFilter.h"
 
 class SynthVoice : public SynthesiserVoice
 {
 private:
     // encapsulated objects which generate/modify sound
     SynthOscillator osc1, osc2;
-    SynthEnvelopeGenerator ampEG;
+    SynthEnvelopeGenerator ampEG, filterEG;
+    VAStateVariableFilter filter;
 
     // current sound parameters
     SynthParameters* pParams;
 
     // voice properties remembered from startNote() call
     float noteVelocity;
+    float noteHz, filterCutoff, filterEgMultiple;
 
     // dynamic properties of this voice
     float pitchBend;    // converted to range [-1.0, +1.0]

@@ -18,36 +18,36 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
-#include "GuiTabs.h"
+#include "PluginProcessor.h"
+#include "PluginEditor.h"
 
-GuiTabs::GuiTabs (SynthSound* pSynthSound)
+VanillaJuceAudioProcessorEditor::VanillaJuceAudioProcessorEditor (VanillaJuceAudioProcessor& p)
+    : AudioProcessorEditor (&p)
+    , processor (p)
+    , guiTabs(p.getSound())
 {
-    addAndMakeVisible (tabbedComponent = new TabbedComponent (TabbedButtonBar::TabsAtTop));
-    tabbedComponent->setTabBarDepth (32);
-    tabbedComponent->addTab(TRANS("Main"), Colours::lightgrey, pMainTab = new GuiMainTab(pSynthSound), true);
-    tabbedComponent->addTab(TRANS("Osc"), Colours::lightgrey, pOscTab = new GuiOscTab(pSynthSound), true);
-    tabbedComponent->addTab(TRANS("AmpEG"), Colours::lightgrey, pAmpEgTab = new GuiEgTab(pSynthSound), true);
-    tabbedComponent->setCurrentTabIndex(0);
+    setSize (600, 360);
+    addAndMakeVisible(&guiTabs);
+    p.addChangeListener(this);
 }
 
-GuiTabs::~GuiTabs()
+VanillaJuceAudioProcessorEditor::~VanillaJuceAudioProcessorEditor()
 {
+    processor.removeChangeListener(this);
 }
 
-//==============================================================================
-void GuiTabs::paint (Graphics& g)
+void VanillaJuceAudioProcessorEditor::paint (Graphics& g)
 {
-    g.fillAll (Colour (0xff323e44));
+    ignoreUnused(g);
 }
 
-void GuiTabs::resized()
+void VanillaJuceAudioProcessorEditor::resized()
 {
-    tabbedComponent->setBounds (0, 0, getWidth(), getWidth());
+    guiTabs.setBounds(0, 0, getWidth(), getHeight());
 }
 
-void GuiTabs::notify()
+void VanillaJuceAudioProcessorEditor::changeListenerCallback(ChangeBroadcaster* source)
 {
-    pMainTab->notify();
-    pOscTab->notify();
-    pAmpEgTab->notify();
+    ignoreUnused(source);
+    guiTabs.notify();
 }

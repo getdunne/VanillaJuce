@@ -22,32 +22,27 @@ THE SOFTWARE.
 #include "../JuceLibraryCode/JuceHeader.h"
 #include "SynthSound.h"
 
-class GuiOscTab :   public Component,
-                    public ComboBox::Listener,
+class GuiEgTab  :   public Component,
                     public Slider::Listener
 {
 public:
-    GuiOscTab (SynthSound* pSynthSound);
-    ~GuiOscTab();
+    GuiEgTab (SynthSound* pSynthSound);
 
     void paint (Graphics& g) override;
     void resized() override;
-    void comboBoxChanged (ComboBox* comboBoxThatHasChanged) override;
     void sliderValueChanged (Slider* sliderThatWasMoved) override;
 
-    void notify();
+    virtual void notify();
 
-private:
+protected:
+    bool isFilterTab;
     SynthSound* pSound;
 
-    Label wfLabel1, semiLabel1, detuneLabel1;
-    ComboBox waveformCB1;
-    Slider semiSlider1, detuneSlider1;
-    Label wfLabel2, semiLabel2, detuneLabel2;
-    ComboBox waveformCB2;
-    Slider semiSlider2, detuneSlider2;
-    Label oscBlendLabel;
-    Slider oscBlendSlider;
+    Label attackLabel, decayLabel, sustainLabel, releaseLabel;
+    Slider attackSlider, decaySlider, sustainSlider, releaseSlider;
 
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (GuiOscTab)
+    void initLabel(Label& label);
+    void initSlider(Slider& slider);
+
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (GuiEgTab)
 };

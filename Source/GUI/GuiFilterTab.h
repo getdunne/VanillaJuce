@@ -20,25 +20,25 @@ THE SOFTWARE.
 */
 #pragma once
 #include "../JuceLibraryCode/JuceHeader.h"
-#include "SynthSound.h"
+#include "GuiEgTab.h"
 
-class GuiEgTab  :   public Component,
-                    public Slider::Listener
+class GuiFilterTab  : public GuiEgTab
+                    , public ComboBox::Listener
 {
 public:
-    GuiEgTab (SynthSound* pSynthSound);
+    GuiFilterTab(SynthSound* pSynthSound);
 
-    void paint (Graphics& g) override;
     void resized() override;
+    void comboBoxChanged(ComboBox* comboBoxThatHasChanged) override;
     void sliderValueChanged (Slider* sliderThatWasMoved) override;
 
-    void notify();
+    void notify() override;
 
 private:
-    SynthSound* pSound;
 
-    Label attackLabel, decayLabel, sustainLabel, releaseLabel;
-    Slider attackSlider, decaySlider, sustainSlider, releaseSlider;
+    Label typeLabel, cutoffLabel, resonanceLabel, egAmountLabel;
+    ComboBox typeCombo;
+    Slider cutoffSlider, resonanceSlider, egAmountSlider;
 
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (GuiEgTab)
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (GuiFilterTab)
 };

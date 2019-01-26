@@ -37,6 +37,14 @@ void SynthParameters::setDefaultValues()
     ampEgDecayTimeSeconds = 0.1f;
     ampEgSustainLevel = 0.8f;
     ampEgReleaseTimeSeconds = 0.5f;
+    filterEgAttackTimeSeconds = 1.0f;
+    filterEgDecayTimeSeconds = 1.0f;
+    filterEgSustainLevel = 0.0f;
+    filterEgReleaseTimeSeconds = 1.0f;
+    filterType = SVFLowpass;
+    filterCutoff = 3000.0f;
+    filterResonance = 0.0f;
+    filterEgAmount = 10.0f;
 }
 
 XmlElement* SynthParameters::getXml()
@@ -63,6 +71,16 @@ XmlElement* SynthParameters::getXml()
     xml->setAttribute("ampEgSustainLevel", ampEgSustainLevel);
     xml->setAttribute("ampEgReleaseTimeSeconds", ampEgReleaseTimeSeconds);
 
+    xml->setAttribute("filterEgAttackTimeSeconds", filterEgAttackTimeSeconds);
+    xml->setAttribute("filterEgDecayTimeSeconds", filterEgDecayTimeSeconds);
+    xml->setAttribute("filterEgSustainLevel", filterEgSustainLevel);
+    xml->setAttribute("filterEgReleaseTimeSeconds", filterEgReleaseTimeSeconds);
+
+    xml->setAttribute("filterType", filterType);
+    xml->setAttribute("filterCutoff", filterCutoff);
+    xml->setAttribute("filterResonance", filterResonance);
+    xml->setAttribute("filterEgAmount", filterEgAmount);
+
     return xml;
 }
 
@@ -87,4 +105,14 @@ void SynthParameters::putXml(XmlElement* xml)
     ampEgDecayTimeSeconds = (float)(xml->getDoubleAttribute("ampEgDecayTimeSeconds"));
     ampEgSustainLevel = (float)(xml->getDoubleAttribute("ampEgSustainLevel"));
     ampEgReleaseTimeSeconds = (float)(xml->getDoubleAttribute("ampEgReleaseTimeSeconds"));
+
+    filterEgAttackTimeSeconds = (float)(xml->getDoubleAttribute("filterEgAttackTimeSeconds"));
+    filterEgDecayTimeSeconds = (float)(xml->getDoubleAttribute("filterEgDecayTimeSeconds"));
+    filterEgSustainLevel = (float)(xml->getDoubleAttribute("filterEgSustainLevel"));
+    filterEgReleaseTimeSeconds = (float)(xml->getDoubleAttribute("filterEgReleaseTimeSeconds"));
+
+    filterType = (SVFType)(xml->getIntAttribute("filterType"));
+    filterCutoff = (float)(xml->getDoubleAttribute("filterCutoff"));
+    filterResonance = (float)(xml->getDoubleAttribute("filterResonance"));
+    filterEgAmount = (float)(xml->getDoubleAttribute("filterEgAmount"));
 }

@@ -18,36 +18,39 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
-#include "PluginProcessor.h"
-#include "PluginEditor.h"
+#include "GuiTabs.h"
 
-VanillaJuceAudioProcessorEditor::VanillaJuceAudioProcessorEditor (VanillaJuceAudioProcessor& p)
-    : AudioProcessorEditor (&p)
-    , processor (p)
-    , guiTabs(p.getSound())
+GuiTabs::GuiTabs (SynthSound* pSynthSound)
 {
-    setSize (600, 300);
-    addAndMakeVisible(&guiTabs);
-    p.addChangeListener(this);
+    addAndMakeVisible (tabbedComponent = new TabbedComponent (TabbedButtonBar::TabsAtTop));
+    tabbedComponent->setTabBarDepth (32);
+    tabbedComponent->addTab(TRANS("Main"), Colours::lightgrey, pMainTab = new GuiMainTab(pSynthSound), true);
+    tabbedComponent->addTab(TRANS("Osc"), Colours::lightgrey, pOscTab = new GuiOscTab(pSynthSound), true);
+    tabbedComponent->addTab(TRANS("Amp"), Colours::lightgrey, pAmpEgTab = new GuiEgTab(pSynthSound), true);
+    tabbedComponent->addTab(TRANS("Filter"), Colours::lightgrey, pFilterTab = new GuiFilterTab(pSynthSound), true);
+    tabbedComponent->setCurrentTabIndex(0);
+    notify();
 }
 
-VanillaJuceAudioProcessorEditor::~VanillaJuceAudioProcessorEditor()
+GuiTabs::~GuiTabs()
 {
-    processor.removeChangeListener(this);
 }
 
-void VanillaJuceAudioProcessorEditor::paint (Graphics& g)
+//==============================================================================
+void GuiTabs::paint (Graphics& g)
 {
-    ignoreUnused(g);
+    g.fillAll (Colour (0xff323e44));
 }
 
-void VanillaJuceAudioProcessorEditor::resized()
+void GuiTabs::resized()
 {
-    guiTabs.setBounds(0, 0, getWidth(), getHeight());
+    tabbedComponent->setBounds (0, 0, getWidth(), getWidth());
 }
 
-void VanillaJuceAudioProcessorEditor::changeListenerCallback(ChangeBroadcaster* source)
+void GuiTabs::notify()
 {
-    ignoreUnused(source);
-    guiTabs.notify();
+    pMainTab->notify();
+    pOscTab->notify();
+    pAmpEgTab->notify();
+    pFilterTab->notify();
 }

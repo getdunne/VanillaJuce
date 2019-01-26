@@ -52,8 +52,6 @@ GuiMainTab::GuiMainTab (SynthSound* pSynthSound)
     initSlider(masterLevelSlider); masterLevelSlider.setRange(0, 10, 0);
     initSlider(pbUpSlider); pbUpSlider.setRange(0, 12, 1);
     initSlider(pbDownSlider); pbDownSlider.setRange(0, 12, 1);
-
-    notify();
 }
 
 GuiMainTab::~GuiMainTab()

@@ -20,40 +20,34 @@ THE SOFTWARE.
 */
 #pragma once
 #include "../JuceLibraryCode/JuceHeader.h"
-#include "SynthWaveform.h"
+#include "SynthSound.h"
 
-class SynthParameters
+class GuiOscTab :   public Component,
+                    public ComboBox::Listener,
+                    public Slider::Listener
 {
 public:
-    String programName;
+    GuiOscTab (SynthSound* pSynthSound);
+    ~GuiOscTab();
 
-    // main
-    float masterLevel;
-    float oscBlend;                        // [0.0, 1.0] relative osc1 level
-    int pitchBendUpSemitones;
-    int pitchBendDownSemitones;
-    
-    // osc 1
-    SynthWaveform osc1Waveform;
-    int osc1PitchOffsetSemitones;
-    float osc1DetuneOffsetCents;
-    
-    // osc 2
-    SynthWaveform osc2Waveform;
-    int osc2PitchOffsetSemitones;
-    float osc2DetuneOffsetCents;
-    
-    // amp EG
-    float ampEgAttackTimeSeconds;
-    float ampEgDecayTimeSeconds;
-    float ampEgSustainLevel;               // [0.0, 1.0]
-    float ampEgReleaseTimeSeconds;
+    void paint (Graphics& g) override;
+    void resized() override;
+    void comboBoxChanged (ComboBox* comboBoxThatHasChanged) override;
+    void sliderValueChanged (Slider* sliderThatWasMoved) override;
 
-public:
-    // Set default values
-    void setDefaultValues();
+    virtual void notify();
 
-    // Save and Restore from XML
-    XmlElement* getXml();
-    void putXml(XmlElement* xml);
+private:
+    SynthSound* pSound;
+
+    Label wfLabel1, semiLabel1, detuneLabel1;
+    ComboBox waveformCB1;
+    Slider semiSlider1, detuneSlider1;
+    Label wfLabel2, semiLabel2, detuneLabel2;
+    ComboBox waveformCB2;
+    Slider semiSlider2, detuneSlider2;
+    Label oscBlendLabel;
+    Slider oscBlendSlider;
+
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (GuiOscTab)
 };

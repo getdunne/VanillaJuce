@@ -20,6 +20,24 @@ THE SOFTWARE.
 */
 #include "GuiEgTab.h"
 
+void GuiEgTab::initLabel(Label& label)
+{
+    addAndMakeVisible(label);
+    label.setFont(Font(15.00f, Font::plain).withTypefaceStyle("Regular"));
+    label.setJustificationType(Justification::centredRight);
+    label.setEditable(false, false, false);
+    label.setColour(TextEditor::textColourId, Colours::black);
+    label.setColour(TextEditor::backgroundColourId, Colour(0x00000000));
+}
+
+void GuiEgTab::initSlider(Slider& slider)
+{
+    addAndMakeVisible(slider);
+    slider.setSliderStyle(Slider::LinearHorizontal);
+    slider.setTextBoxStyle(Slider::TextBoxRight, false, 80, 20);
+    slider.addListener(this);
+}
+
 GuiEgTab::GuiEgTab (SynthSound* pSynthSound)
     : pSound(pSynthSound)
     , attackLabel("attack", TRANS("Attack Time (sec)"))
@@ -27,35 +45,15 @@ GuiEgTab::GuiEgTab (SynthSound* pSynthSound)
     , sustainLabel("sustain", TRANS("Sustain Level (%)"))
     , releaseLabel("release", TRANS("Release Time (sec)"))
 {
-    auto initLabel = [this](Label& label)
-    {
-        addAndMakeVisible(label);
-        label.setFont (Font (15.00f, Font::plain).withTypefaceStyle ("Regular"));
-        label.setJustificationType (Justification::centredRight);
-        label.setEditable (false, false, false);
-        label.setColour (TextEditor::textColourId, Colours::black);
-        label.setColour (TextEditor::backgroundColourId, Colour (0x00000000));
-    };
-
     initLabel(attackLabel);
     initLabel(decayLabel);
     initLabel(sustainLabel);
     initLabel(releaseLabel);
 
-    auto initSlider = [this](Slider& slider)
-    {
-        addAndMakeVisible(slider);
-        slider.setSliderStyle (Slider::LinearHorizontal);
-        slider.setTextBoxStyle (Slider::TextBoxRight, false, 80, 20);
-        slider.addListener (this);
-    };
-
     initSlider(attackSlider); attackSlider.setRange (0, 10, 0);
     initSlider(decaySlider); decaySlider.setRange (0, 10, 0);
     initSlider(sustainSlider); sustainSlider.setRange (0, 100, 1);
     initSlider(releaseSlider); releaseSlider.setRange (0, 10, 0);
-
-    notify();
 }
 
 void GuiEgTab::paint (Graphics& g)
@@ -99,6 +97,7 @@ void GuiEgTab::sliderValueChanged (Slider* sliderThatWasMoved)
 
 void GuiEgTab::notify()
 {
+    DBG("GuiEgTab::notify()");
     SynthParameters* pParams = pSound->pParams;
     attackSlider.setValue(pParams->ampEgAttackTimeSeconds);
     decaySlider.setValue(pParams->ampEgDecayTimeSeconds);
