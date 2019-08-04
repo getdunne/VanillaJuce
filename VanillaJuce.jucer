@@ -11,7 +11,7 @@
               pluginWantsMidiIn="1" pluginProducesMidiOut="0" pluginIsMidiEffectPlugin="0"
               pluginEditorRequiresKeys="0" pluginAUExportPrefix="VanillaJuceAU"
               pluginRTASCategory="" aaxIdentifier="com.yourcompany.VanillaJuce"
-              pluginAAXCategory="2" jucerVersion="5.3.2" pluginFormats="buildAU,buildStandalone,buildVST"
+              pluginAAXCategory="2" jucerVersion="5.4.3" pluginFormats="buildAU,buildStandalone,buildVST"
               pluginCharacteristicsValue="pluginIsSynth,pluginWantsMidiIn">
   <MAINGROUP id="yt1M8n" name="VanillaJuce">
     <GROUP id="{5872D22E-CBD0-ED29-66AC-7E15BC05C5FB}" name="Source">

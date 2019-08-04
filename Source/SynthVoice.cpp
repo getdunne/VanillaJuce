@@ -83,7 +83,7 @@ void SynthVoice::setup (bool pitchBendOnly)
     {
         osc1.setWaveform(pParams->osc1Waveform);
         osc1Level.reset(sampleRateHz, ampEG.isRunning() ? 0.1 : 0.0);
-        osc1Level.setValue(float(pParams->oscBlend * masterLevel));
+        osc1Level.setTargetValue(float(pParams->oscBlend * masterLevel));
     }
 
     cyclesPerSecond = noteHz(midiNote + pParams->osc2PitchOffsetSemitones, pParams->osc2DetuneOffsetCents + pbCents);
@@ -93,7 +93,7 @@ void SynthVoice::setup (bool pitchBendOnly)
     {
         osc2.setWaveform(pParams->osc2Waveform);
         osc2Level.reset(sampleRateHz, ampEG.isRunning() ? 0.1 : 0.0);
-        osc2Level.setValue(float((1.0 - pParams->oscBlend) * masterLevel));
+        osc2Level.setTargetValue(float((1.0 - pParams->oscBlend) * masterLevel));
     }
 
     if (!pitchBendOnly)

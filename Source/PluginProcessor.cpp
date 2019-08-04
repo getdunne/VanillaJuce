@@ -138,7 +138,8 @@ void VanillaJuceAudioProcessor::getStateInformation (MemoryBlock& destData)
 
 void VanillaJuceAudioProcessor::setStateInformation (const void* data, int sizeInBytes)
 {
-    ScopedPointer<XmlElement> xml = getXmlFromBinary(data, sizeInBytes);
+    //ScopedPointer<XmlElement> xml = getXmlFromBinary(data, sizeInBytes);
+    std::unique_ptr<XmlElement> xml = getXmlFromBinary(data, sizeInBytes);
     XmlElement* xprogs = xml->getFirstChildElement();
     if (xprogs->hasTagName("programs"))
     {
@@ -155,14 +156,17 @@ void VanillaJuceAudioProcessor::setStateInformation (const void* data, int sizeI
 
 void VanillaJuceAudioProcessor::getCurrentProgramStateInformation(MemoryBlock& destData)
 {
-    ScopedPointer<XmlElement> xml = programBank[currentProgram].getXml();
+    //ScopedPointer<XmlElement> xml = programBank[currentProgram].getXml();
+    XmlElement* xml = programBank[currentProgram].getXml();
     copyXmlToBinary(*xml, destData);
 }
 
 void VanillaJuceAudioProcessor::setCurrentProgramStateInformation(const void* data, int sizeInBytes)
 {
-    ScopedPointer<XmlElement> xml = getXmlFromBinary(data, sizeInBytes);
-    programBank[currentProgram].putXml(xml);
+    //ScopedPointer<XmlElement> xml = getXmlFromBinary(data, sizeInBytes);
+    std::unique_ptr<XmlElement> xml = getXmlFromBinary(data, sizeInBytes);
+    //programBank[currentProgram].putXml(xml);
+    programBank[currentProgram].putXml(xml.get());
     sendChangeMessage();
 }
 
