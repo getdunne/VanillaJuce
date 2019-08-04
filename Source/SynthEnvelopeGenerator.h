@@ -25,7 +25,6 @@ class SynthEnvelopeGenerator
 {
 private:
     double sampleRateHz;
-    //LinearSmoothedValue<double> interpolator;
     juce::SmoothedValue<double> interpolator;
 
     enum class EG_Segment

@@ -37,7 +37,6 @@ public:
     void notify();
 
 private:
-    //ScopedPointer<TabbedComponent> tabbedComponent;
     std::unique_ptr<TabbedComponent> tabbedComponent;
     GuiMainTab* pMainTab;
     GuiOscTab* pOscTab;

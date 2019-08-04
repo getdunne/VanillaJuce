@@ -23,7 +23,6 @@ THE SOFTWARE.
 GuiTabs::GuiTabs (SynthSound* pSynthSound)
 : tabbedComponent(new TabbedComponent (TabbedButtonBar::TabsAtTop))
 {
-    //addAndMakeVisible (tabbedComponent = new TabbedComponent (TabbedButtonBar::TabsAtTop));
     addAndMakeVisible(*tabbedComponent);
     tabbedComponent->setTabBarDepth (32);
     tabbedComponent->addTab(TRANS("Main"), Colours::lightgrey, pMainTab = new GuiMainTab(pSynthSound), true);
