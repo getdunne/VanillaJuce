@@ -21,8 +21,9 @@ THE SOFTWARE.
 #include "GuiTabs.h"
 
 GuiTabs::GuiTabs (SynthSound* pSynthSound)
+: tabbedComponent(new TabbedComponent (TabbedButtonBar::TabsAtTop))
 {
-    addAndMakeVisible (tabbedComponent = new TabbedComponent (TabbedButtonBar::TabsAtTop));
+    addAndMakeVisible(*tabbedComponent);
     tabbedComponent->setTabBarDepth (32);
     tabbedComponent->addTab(TRANS("Main"), Colours::lightgrey, pMainTab = new GuiMainTab(pSynthSound), true);
     tabbedComponent->addTab(TRANS("Osc"), Colours::lightgrey, pOscTab = new GuiOscTab(pSynthSound), true);
