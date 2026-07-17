@@ -3,14 +3,14 @@
 <JUCERPROJECT id="U3zolO" name="VanillaJuce" displaySplashScreen="1" reportAppUsage="1"
               splashScreenColour="Dark" projectType="audioplug" version="1.0.0"
               bundleIdentifier="com.yourcompany.VanillaJuce" includeBinaryInAppConfig="0"
-              buildVST="1" buildVST3="0" buildAU="1" buildAUv3="0" buildRTAS="0"
+              buildVST="1" buildVST3="1" buildAU="1" buildAUv3="0" buildRTAS="0"
               buildAAX="0" buildStandalone="1" enableIAA="0" pluginName="VanillaJuce"
               pluginDesc="VanillaJuce" pluginManufacturer="yourcompany" pluginManufacturerCode="Manu"
               pluginCode="U3zo" pluginChannelConfigs="{0,2}" pluginIsSynth="1"
               pluginWantsMidiIn="1" pluginProducesMidiOut="0" pluginIsMidiEffectPlugin="0"
               pluginEditorRequiresKeys="0" pluginAUExportPrefix="VanillaJuceAU"
               pluginRTASCategory="" aaxIdentifier="com.yourcompany.VanillaJuce"
-              pluginAAXCategory="2" pluginFormats="buildAU,buildStandalone,buildVST"
+              pluginAAXCategory="2" pluginFormats="buildAU,buildStandalone,buildVST,buildVST3"
               pluginCharacteristicsValue="pluginIsSynth,pluginWantsMidiIn"
               jucerFormatVersion="1">
   <MAINGROUP id="yt1M8n" name="VanillaJuce">
@@ -60,10 +60,15 @@
     </GROUP>
   </MAINGROUP>
   <EXPORTFORMATS>
-    <XCODE_MAC targetFolder="Builds/MacOSX">
+    <XCODE_MAC targetFolder="Builds/MacOSX" extraDefs="JUCE_SILENCE_XCODE_15_LINKER_WARNING=1"
+               extraLinkerFlags="-Wl,-weak_reference_mismatches,weak" hardenedRuntime="1"
+               iosDevelopmentTeamID="W5AEHZN66V">
       <CONFIGURATIONS>
-        <CONFIGURATION name="Debug" isDebug="1" optimisation="1" targetName="VanillaJuce"/>
-        <CONFIGURATION name="Release" isDebug="0" optimisation="3" targetName="VanillaJuce"/>
+        <CONFIGURATION name="Debug" isDebug="1" optimisation="1" targetName="VanillaJuce"
+                       enablePluginBinaryCopyStep="0" codeSigningIdentity="-" recommendedWarnings="LLVM"/>
+        <CONFIGURATION name="Release" isDebug="0" optimisation="3" targetName="VanillaJuce"
+                       enablePluginBinaryCopyStep="0" recommendedWarnings="LLVM" customXcodeFlags="OTHER_CODE_SIGN_FLAGS=--timestamp"
+                       codeSigningIdentity="Developer ID Application: Dunne &amp; Associates Technology Consulting, Inc (W5AEHZN66V)"/>
       </CONFIGURATIONS>
       <MODULEPATHS>
         <MODULEPATH id="juce_core" path="../../JUCE_7.0.12/modules"/>
